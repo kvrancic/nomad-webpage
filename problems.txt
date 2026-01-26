@@ -1,0 +1,6 @@
+- root still doesnt redirect to /hr 
+- /hr (Unlike /en still doesn't have any subpages) 
+- neither /en and /hr have blog subpages 
+- vertical spacing (padding/margin) between different content blocks is too large (for example between our work and its content and our location and its content on the homepage, same is the case on all subpages)
+- in gallery one picture should be displayed by default (after, and then on hover before is displayed) -- and on click the popup with both is shown 
+

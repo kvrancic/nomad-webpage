@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:nomadbarbershop.hr)",
+      "mcp__perplexity__perplexity_search",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9)",
+      "Bash(npm ls:*)",
+      "Bash(curl:*)",
+      "Bash(kill:*)",
+      "Bash(sleep 2 curl -s -o /dev/null -w \"/ -> %{http_code}\\\\n\" \"http://localhost:3000/\" curl -v \"http://localhost:3000/\")"
+    ]
+  }
+}
