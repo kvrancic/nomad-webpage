@@ -8,18 +8,33 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Accordion } from '@/components/ui/Accordion'
 import { Link } from '@/i18n/routing'
 import { fadeInUp } from '@/lib/animations'
+import type { SanityFaq } from '../../../sanity/lib'
 
-// Show first 4 FAQ items on homepage
+interface FAQPreviewProps {
+  faqs?: SanityFaq[]
+  locale?: string
+}
+
+// Fallback FAQ keys for translation-based content
 const faqKeys = ['reservation', 'drinks', 'parking', 'giftcards']
 
-export function FAQPreview() {
+export function FAQPreview({ faqs, locale = 'hr' }: FAQPreviewProps) {
   const t = useTranslations('faq')
 
-  const faqItems = faqKeys.map(key => ({
-    id: key,
-    title: t(`items.${key}.title`),
-    content: t(`items.${key}.content`),
-  }))
+  // Use Sanity data if available, otherwise fall back to translations
+  const hasSanityData = faqs && faqs.length > 0
+
+  const faqItems = hasSanityData
+    ? faqs.slice(0, 4).map((faq) => ({
+        id: faq._id,
+        title: locale === 'en' && faq.questionEn ? faq.questionEn : faq.question,
+        content: locale === 'en' && faq.answerEn ? faq.answerEn : faq.answer,
+      }))
+    : faqKeys.map((key) => ({
+        id: key,
+        title: t(`items.${key}.title`),
+        content: t(`items.${key}.content`),
+      }))
 
   return (
     <section className="py-16 md:py-20">

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import { X } from 'lucide-react'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { cn } from '@/lib/utils'
@@ -14,6 +15,8 @@ interface GalleryItemProps {
   category?: string
   aspectRatio?: 'square' | 'portrait'
   className?: string
+  beforeImage?: string
+  afterImage?: string
 }
 
 export function GalleryItem({
@@ -24,9 +27,13 @@ export function GalleryItem({
   category,
   aspectRatio = 'square',
   className,
+  beforeImage,
+  afterImage,
 }: GalleryItemProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const hasRealImages = beforeImage && afterImage
 
   return (
     <>
@@ -39,22 +46,44 @@ export function GalleryItem({
       >
         {/* After image (default) */}
         <div className={cn('transition-opacity duration-300', isHovered ? 'opacity-0' : 'opacity-100')}>
-          <PlaceholderImage
-            category="gallery"
-            label={afterLabel}
-            aspectRatio={aspectRatio}
-            className="w-full h-full"
-          />
+          {hasRealImages ? (
+            <div className={cn('relative overflow-hidden', aspectRatio === 'portrait' ? 'aspect-[3/4]' : 'aspect-square')}>
+              <Image
+                src={afterImage}
+                alt={afterLabel}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ) : (
+            <PlaceholderImage
+              category="gallery"
+              label={afterLabel}
+              aspectRatio={aspectRatio}
+              className="w-full h-full"
+            />
+          )}
         </div>
 
         {/* Before image (on hover) */}
         <div className={cn('absolute inset-0 transition-opacity duration-300', isHovered ? 'opacity-100' : 'opacity-0')}>
-          <PlaceholderImage
-            category="gallery"
-            label={beforeLabel}
-            aspectRatio={aspectRatio}
-            className="w-full h-full"
-          />
+          {hasRealImages ? (
+            <div className={cn('relative overflow-hidden', aspectRatio === 'portrait' ? 'aspect-[3/4]' : 'aspect-square')}>
+              <Image
+                src={beforeImage}
+                alt={beforeLabel}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ) : (
+            <PlaceholderImage
+              category="gallery"
+              label={beforeLabel}
+              aspectRatio={aspectRatio}
+              className="w-full h-full"
+            />
+          )}
         </div>
 
         {/* Info overlay */}
@@ -103,12 +132,23 @@ export function GalleryItem({
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Before */}
                 <div className="relative">
-                  <PlaceholderImage
-                    category="gallery"
-                    label={beforeLabel}
-                    aspectRatio="square"
-                    className="w-full"
-                  />
+                  {hasRealImages ? (
+                    <div className="relative aspect-square overflow-hidden">
+                      <Image
+                        src={beforeImage}
+                        alt={beforeLabel}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <PlaceholderImage
+                      category="gallery"
+                      label={beforeLabel}
+                      aspectRatio="square"
+                      className="w-full"
+                    />
+                  )}
                   <div className="absolute bottom-4 left-4 px-3 py-1 bg-anthracite-500 text-white rounded text-sm font-medium">
                     {beforeLabel}
                   </div>
@@ -116,12 +156,23 @@ export function GalleryItem({
 
                 {/* After */}
                 <div className="relative">
-                  <PlaceholderImage
-                    category="gallery"
-                    label={afterLabel}
-                    aspectRatio="square"
-                    className="w-full"
-                  />
+                  {hasRealImages ? (
+                    <div className="relative aspect-square overflow-hidden">
+                      <Image
+                        src={afterImage}
+                        alt={afterLabel}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <PlaceholderImage
+                      category="gallery"
+                      label={afterLabel}
+                      aspectRatio="square"
+                      className="w-full"
+                    />
+                  )}
                   <div className="absolute bottom-4 left-4 px-3 py-1 bg-mint-500 text-white rounded text-sm font-medium">
                     {afterLabel}
                   </div>

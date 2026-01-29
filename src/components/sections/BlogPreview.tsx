@@ -2,26 +2,35 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { FileText } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Link } from '@/i18n/routing'
-import NextLink from 'next/link'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityBlogPost } from '../../../sanity/lib'
 
-// Placeholder blog posts - will be replaced with CMS data
-const PLACEHOLDER_POSTS: Array<{
-  id: string
-  title: string
-  excerpt: string
-  date: string
-}> = []
+interface BlogPreviewProps {
+  posts?: SanityBlogPost[]
+  locale?: string
+}
 
-export function BlogPreview() {
+export function BlogPreview({ posts, locale = 'hr' }: BlogPreviewProps) {
   const t = useTranslations('blog')
 
-  const hasPosts = PLACEHOLDER_POSTS.length > 0
+  const hasPosts = posts && posts.length > 0
+  const displayPosts = hasPosts ? posts.slice(0, 3) : []
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString(locale === 'en' ? 'en-US' : 'hr-HR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  }
 
   return (
     <section className="py-16 md:py-20 bg-neutral-50">
@@ -40,29 +49,46 @@ export function BlogPreview() {
               viewport={{ once: true, margin: '-100px' }}
               className="grid md:grid-cols-3 gap-8 mb-12"
             >
-              {PLACEHOLDER_POSTS.slice(0, 3).map((post) => (
-                <motion.div key={post.id} variants={fadeInUp}>
-                  <Card hover variant="elevated" className="h-full">
-                    <CardContent className="flex flex-col h-full">
-                      <span className="text-sm text-neutral-400 mb-2">
-                        {post.date}
-                      </span>
-                      <h3 className="font-display text-xl text-anthracite-500 mb-3">
-                        {post.title}
-                      </h3>
-                      <p className="text-neutral-600 text-sm mb-4 flex-grow">
-                        {post.excerpt}
-                      </p>
-                      <Link
-                        href={`/blog/${post.id}`}
-                        className="text-mint-600 hover:text-mint-700 font-medium text-sm"
-                      >
-                        {t('readMore')} →
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+              {displayPosts.map((post) => {
+                const title = locale === 'en' && post.titleEn ? post.titleEn : post.title
+                const excerpt = locale === 'en' && post.excerptEn ? post.excerptEn : post.excerpt
+
+                return (
+                  <motion.div key={post._id} variants={fadeInUp}>
+                    <Card hover variant="elevated" className="h-full overflow-hidden">
+                      {post.featuredImage && (
+                        <div className="relative aspect-video overflow-hidden">
+                          <Image
+                            src={urlFor(post.featuredImage).width(400).height(225).url()}
+                            alt={title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <CardContent className="flex flex-col h-full">
+                        <span className="text-sm text-neutral-400 mb-2">
+                          {formatDate(post.publishedAt)}
+                        </span>
+                        <h3 className="font-display text-xl text-anthracite-500 mb-3">
+                          {title}
+                        </h3>
+                        {excerpt && (
+                          <p className="text-neutral-600 text-sm mb-4 flex-grow">
+                            {excerpt}
+                          </p>
+                        )}
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="text-mint-600 hover:text-mint-700 font-medium text-sm"
+                        >
+                          {t('readMore')} →
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )
+              })}
             </motion.div>
 
             <div className="text-center">

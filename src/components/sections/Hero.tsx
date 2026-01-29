@@ -13,12 +13,14 @@ import {
   textRevealContainer,
   textRevealCharacter,
 } from '@/lib/animations'
+import type { SanitySiteSettings } from '../../../sanity/lib'
 
 interface HeroProps {
-  videoUrl?: string // Optional video URL for CMS integration
+  videoUrl?: string
+  settings?: SanitySiteSettings | null
 }
 
-export function Hero({ videoUrl }: HeroProps) {
+export function Hero({ videoUrl, settings }: HeroProps) {
   const t = useTranslations('hero')
 
   const headlineChars = t('headline').split('')
@@ -84,11 +86,11 @@ export function Hero({ videoUrl }: HeroProps) {
             variants={fadeInUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button href={FRESHA_URLS.default} variant="primary" size="lg">
+            <Button href={settings?.freshaUrl || FRESHA_URLS.default} variant="primary" size="lg">
               {t('cta')}
             </Button>
             <Button
-              href={FRESHA_URLS.giftCards}
+              href={settings?.giftCardsUrl || FRESHA_URLS.giftCards}
               variant="outline"
               size="lg"
               className="border-mint-500 text-mint-400 hover:bg-mint-500 hover:text-white"

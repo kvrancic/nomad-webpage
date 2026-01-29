@@ -12,7 +12,8 @@
       "Bash(npm ls:*)",
       "Bash(curl:*)",
       "Bash(kill:*)",
-      "Bash(sleep 2 curl -s -o /dev/null -w \"/ -> %{http_code}\\\\n\" \"http://localhost:3000/\" curl -v \"http://localhost:3000/\")"
+      "Bash(sleep 2 curl -s -o /dev/null -w \"/ -> %{http_code}\\\\n\" \"http://localhost:3000/\" curl -v \"http://localhost:3000/\")",
+      "Bash(npm install:*)"
     ]
   }
 }

@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { BlogPage } from '@/components/pages/BlogPage'
+import { getBlogPosts } from '../../../../sanity/lib'
 
 export async function generateMetadata({
   params,
@@ -26,11 +27,13 @@ export default async function Blog({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const posts = await getBlogPosts()
+
   return (
     <>
       <Header />
       <main className="pt-20">
-        <BlogPage />
+        <BlogPage posts={posts} locale={locale} />
       </main>
       <Footer />
     </>

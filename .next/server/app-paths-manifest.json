@@ -1,5 +1,17 @@
 {
-  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/about/page": "app/[locale]/about/page.js",
+  "/[locale]/blog/[slug]/page": "app/[locale]/blog/[slug]/page.js",
+  "/[locale]/blog/page": "app/[locale]/blog/page.js",
+  "/[locale]/experience/page": "app/[locale]/experience/page.js",
+  "/[locale]/faq/page": "app/[locale]/faq/page.js",
+  "/[locale]/gallery/page": "app/[locale]/gallery/page.js",
   "/[locale]/gift-cards/page": "app/[locale]/gift-cards/page.js",
-  "/[locale]/locations/page": "app/[locale]/locations/page.js"
+  "/[locale]/locations/page": "app/[locale]/locations/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/services/page": "app/[locale]/services/page.js",
+  "/[locale]/team/page": "app/[locale]/team/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/studio/[[...tool]]/page": "app/studio/[[...tool]]/page.js"
 }
