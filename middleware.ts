@@ -24,6 +24,6 @@ export const config = {
     // Match root
     '/',
     // Skip internal paths (_next, api) and static files
-    '/((?!_next|api|.*\\..*).*)',
+    '/((?!_next|api|studio|.*\\..*).*)',
   ],
 }
