@@ -34,7 +34,7 @@ async function safeFetch<T>(query: string, params?: Record<string, unknown>): Pr
     return null
   }
   try {
-    return await client.fetch(query, params)
+    return await client.fetch(query, params, { next: { tags: ['sanity'] } })
   } catch (error) {
     console.error('Sanity fetch error:', error)
     return null
