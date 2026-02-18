@@ -194,6 +194,38 @@ export const featuredTestimonialsQuery = groq`
   }
 `
 
+// What to Expect
+export const whatToExpectQuery = groq`
+  *[_type == "whatToExpect"][0] {
+    badge,
+    badgeEn,
+    title,
+    titleEn,
+    subtitle,
+    subtitleEn,
+    description,
+    descriptionEn,
+    images
+  }
+`
+
+// Experience Showcase
+export const experienceShowcaseQuery = groq`
+  *[_type == "experienceShowcase"][0] {
+    badge,
+    badgeEn,
+    title,
+    titleEn,
+    subtitle,
+    subtitleEn,
+    description,
+    descriptionEn,
+    features,
+    mainImage,
+    secondaryImage
+  }
+`
+
 // Site Settings
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {

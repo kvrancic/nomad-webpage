@@ -29,6 +29,23 @@ export default defineConfig({
                   .schemaType('siteSettings')
                   .documentId('siteSettings')
               ),
+            // Homepage sections (singletons)
+            S.listItem()
+              .title('What to Expect Section')
+              .id('whatToExpect')
+              .child(
+                S.document()
+                  .schemaType('whatToExpect')
+                  .documentId('whatToExpect')
+              ),
+            S.listItem()
+              .title('Experience Section')
+              .id('experienceShowcase')
+              .child(
+                S.document()
+                  .schemaType('experienceShowcase')
+                  .documentId('experienceShowcase')
+              ),
             S.divider(),
             // Content types
             S.listItem()

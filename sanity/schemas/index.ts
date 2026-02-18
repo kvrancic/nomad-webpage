@@ -6,6 +6,8 @@ import { galleryItem } from './galleryItem'
 import { faq } from './faq'
 import { testimonial } from './testimonial'
 import { siteSettings } from './siteSettings'
+import { whatToExpect } from './whatToExpect'
+import { experienceShowcase } from './experienceShowcase'
 
 export const schemaTypes = [
   // Documents
@@ -17,4 +19,6 @@ export const schemaTypes = [
   faq,
   testimonial,
   siteSettings,
+  whatToExpect,
+  experienceShowcase,
 ]

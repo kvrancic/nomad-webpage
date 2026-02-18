@@ -12,6 +12,8 @@ import {
   testimonialsQuery,
   featuredTestimonialsQuery,
   siteSettingsQuery,
+  whatToExpectQuery,
+  experienceShowcaseQuery,
 } from './queries'
 import type {
   SanityLocation,
@@ -23,6 +25,8 @@ import type {
   SanityFaq,
   SanityTestimonial,
   SanitySiteSettings,
+  SanityWhatToExpect,
+  SanityExperienceShowcase,
 } from './types'
 
 // Check if Sanity is properly configured
@@ -113,6 +117,16 @@ export async function getTestimonials(): Promise<SanityTestimonial[]> {
 export async function getFeaturedTestimonials(): Promise<SanityTestimonial[]> {
   const result = await safeFetch<SanityTestimonial[]>(featuredTestimonialsQuery)
   return result || []
+}
+
+// What to Expect
+export async function getWhatToExpect(): Promise<SanityWhatToExpect | null> {
+  return safeFetch<SanityWhatToExpect>(whatToExpectQuery)
+}
+
+// Experience Showcase
+export async function getExperienceShowcase(): Promise<SanityExperienceShowcase | null> {
+  return safeFetch<SanityExperienceShowcase>(experienceShowcaseQuery)
 }
 
 // Site Settings

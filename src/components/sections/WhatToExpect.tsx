@@ -2,12 +2,41 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { Badge } from '@/components/ui/Badge'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
-import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations'
+import { staggerContainer, fadeInLeft, fadeInRight } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityWhatToExpect } from '../../../sanity/lib'
 
-export function WhatToExpect() {
+interface WhatToExpectProps {
+  data?: SanityWhatToExpect | null
+  locale?: string
+}
+
+const defaultImageLabels = ['Ambiance', 'Precision', 'Style', 'Relaxation']
+const defaultImageCategories: Array<'experience' | 'service' | 'gallery' | 'experience'> = [
+  'experience', 'service', 'gallery', 'experience',
+]
+const defaultAspectRatios: Array<'portrait' | 'square'> = ['portrait', 'square', 'square', 'portrait']
+
+export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
   const t = useTranslations('whatToExpect')
+
+  const badge = data
+    ? (locale === 'en' && data.badgeEn ? data.badgeEn : data.badge)
+    : t('badge')
+  const title = data
+    ? (locale === 'en' && data.titleEn ? data.titleEn : data.title)
+    : t('title')
+  const subtitle = data
+    ? (locale === 'en' && data.subtitleEn ? data.subtitleEn : data.subtitle)
+    : t('subtitle')
+  const description = data
+    ? (locale === 'en' && data.descriptionEn ? data.descriptionEn : data.description)
+    : t('description')
+
+  const hasImages = data?.images && data.images.length > 0
 
   return (
     <section className="py-16 md:py-20 bg-neutral-50">
@@ -23,32 +52,76 @@ export function WhatToExpect() {
           <motion.div variants={fadeInLeft} className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <PlaceholderImage
-                  category="experience"
-                  label="Ambiance"
-                  aspectRatio="portrait"
-                  className="rounded-lg shadow-lg"
-                />
-                <PlaceholderImage
-                  category="service"
-                  label="Precision"
-                  aspectRatio="square"
-                  className="rounded-lg shadow-lg"
-                />
+                {hasImages && data.images![0] ? (
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
+                    <Image
+                      src={urlFor(data.images![0]).width(400).height(533).url()}
+                      alt={data.images![0].label || 'Image 1'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <PlaceholderImage
+                    category={defaultImageCategories[0]}
+                    label={defaultImageLabels[0]}
+                    aspectRatio={defaultAspectRatios[0]}
+                    className="rounded-lg shadow-lg"
+                  />
+                )}
+                {hasImages && data.images![1] ? (
+                  <div className="relative aspect-square overflow-hidden rounded-lg shadow-lg">
+                    <Image
+                      src={urlFor(data.images![1]).width(400).height(400).url()}
+                      alt={data.images![1].label || 'Image 2'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <PlaceholderImage
+                    category={defaultImageCategories[1]}
+                    label={defaultImageLabels[1]}
+                    aspectRatio={defaultAspectRatios[1]}
+                    className="rounded-lg shadow-lg"
+                  />
+                )}
               </div>
               <div className="space-y-4 pt-8">
-                <PlaceholderImage
-                  category="gallery"
-                  label="Style"
-                  aspectRatio="square"
-                  className="rounded-lg shadow-lg"
-                />
-                <PlaceholderImage
-                  category="experience"
-                  label="Relaxation"
-                  aspectRatio="portrait"
-                  className="rounded-lg shadow-lg"
-                />
+                {hasImages && data.images![2] ? (
+                  <div className="relative aspect-square overflow-hidden rounded-lg shadow-lg">
+                    <Image
+                      src={urlFor(data.images![2]).width(400).height(400).url()}
+                      alt={data.images![2].label || 'Image 3'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <PlaceholderImage
+                    category={defaultImageCategories[2]}
+                    label={defaultImageLabels[2]}
+                    aspectRatio={defaultAspectRatios[2]}
+                    className="rounded-lg shadow-lg"
+                  />
+                )}
+                {hasImages && data.images![3] ? (
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
+                    <Image
+                      src={urlFor(data.images![3]).width(400).height(533).url()}
+                      alt={data.images![3].label || 'Image 4'}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <PlaceholderImage
+                    category={defaultImageCategories[3]}
+                    label={defaultImageLabels[3]}
+                    aspectRatio={defaultAspectRatios[3]}
+                    className="rounded-lg shadow-lg"
+                  />
+                )}
               </div>
             </div>
 
@@ -59,21 +132,27 @@ export function WhatToExpect() {
 
           {/* Right - Content */}
           <motion.div variants={fadeInRight}>
-            <Badge variant="mint" className="mb-4">
-              {t('badge')}
-            </Badge>
+            {badge && (
+              <Badge variant="mint" className="mb-4">
+                {badge}
+              </Badge>
+            )}
 
             <h2 className="heading-2 text-anthracite-500 mb-4">
-              {t('title')}
+              {title}
             </h2>
 
-            <p className="text-mint-600 text-xl font-medium mb-4">
-              {t('subtitle')}
-            </p>
+            {subtitle && (
+              <p className="text-mint-600 text-xl font-medium mb-4">
+                {subtitle}
+              </p>
+            )}
 
-            <p className="text-neutral-600 text-lg max-w-lg">
-              {t('description')}
-            </p>
+            {description && (
+              <p className="text-neutral-600 text-lg max-w-lg">
+                {description}
+              </p>
+            )}
           </motion.div>
         </motion.div>
       </div>

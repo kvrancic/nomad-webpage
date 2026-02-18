@@ -22,6 +22,8 @@ import {
   getFeaturedTestimonials,
   getBlogPosts,
   getSiteSettings,
+  getWhatToExpect,
+  getExperienceShowcase,
   urlFor,
 } from '../../../sanity/lib'
 
@@ -70,6 +72,8 @@ export default async function HomePage({
     testimonials,
     blogPosts,
     settings,
+    whatToExpect,
+    experienceShowcase,
   ] = await Promise.all([
     getLocations(),
     getBarbers(),
@@ -79,6 +83,8 @@ export default async function HomePage({
     getFeaturedTestimonials(),
     getBlogPosts(),
     getSiteSettings(),
+    getWhatToExpect(),
+    getExperienceShowcase(),
   ])
 
   // Get video URL from settings if available
@@ -94,13 +100,13 @@ export default async function HomePage({
         <Hero videoUrl={heroVideoUrl} settings={settings} />
 
         {/* 2. What to Expect - Intro images and text */}
-        <WhatToExpect />
+        <WhatToExpect data={whatToExpect} locale={locale} />
 
         {/* 3. All Services with pricing - Flat grid, no tabs */}
         <ServicesPreview services={services} locale={locale} settings={settings} />
 
         {/* 4. Experience - Whiskey, Beer, Coffee */}
-        <ExperienceShowcase />
+        <ExperienceShowcase data={experienceShowcase} locale={locale} />
 
         {/* 5. Locations */}
         <LocationsGrid locations={locations} locale={locale} settings={settings} />

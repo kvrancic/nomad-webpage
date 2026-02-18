@@ -169,3 +169,38 @@ export interface SanitySiteSettings {
   seoDescription?: string
   seoDescriptionEn?: string
 }
+
+export interface SanityWhatToExpect {
+  badge?: string
+  badgeEn?: string
+  title: string
+  titleEn?: string
+  subtitle?: string
+  subtitleEn?: string
+  description?: string
+  descriptionEn?: string
+  images?: Array<SanityImage & { label?: string }>
+}
+
+export interface SanityExperienceFeature {
+  _key: string
+  icon?: 'whiskey' | 'beer' | 'coffee' | 'atmosphere'
+  title: string
+  titleEn?: string
+  description?: string
+  descriptionEn?: string
+}
+
+export interface SanityExperienceShowcase {
+  badge?: string
+  badgeEn?: string
+  title: string
+  titleEn?: string
+  subtitle?: string
+  subtitleEn?: string
+  description?: string
+  descriptionEn?: string
+  features?: SanityExperienceFeature[]
+  mainImage?: SanityImage
+  secondaryImage?: SanityImage
+}
