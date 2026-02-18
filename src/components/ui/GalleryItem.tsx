@@ -11,8 +11,6 @@ interface GalleryItemProps {
   beforeLabel: string
   afterLabel: string
   barber?: string
-  service?: string
-  category?: string
   aspectRatio?: 'square' | 'portrait'
   className?: string
   beforeImage?: string
@@ -23,8 +21,6 @@ export function GalleryItem({
   beforeLabel,
   afterLabel,
   barber,
-  service,
-  category,
   aspectRatio = 'square',
   className,
   beforeImage,
@@ -86,13 +82,14 @@ export function GalleryItem({
           )}
         </div>
 
-        {/* Info overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-anthracite-900/80 via-transparent to-transparent flex flex-col justify-end p-4">
-          <div className="text-white">
-            {service && <p className="font-medium text-sm">{service}</p>}
-            {barber && <p className="text-xs text-white/70">by {barber}</p>}
+        {/* Info overlay - simplified: only barber name */}
+        {barber && (
+          <div className="absolute inset-0 bg-gradient-to-t from-anthracite-900/80 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="text-white">
+              <p className="text-xs text-white/70">by {barber}</p>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Hover indicator */}
         <div className={cn(
@@ -117,7 +114,7 @@ export function GalleryItem({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative bg-white rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh]"
+              className="relative bg-white rounded-lg overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
@@ -128,17 +125,17 @@ export function GalleryItem({
                 <X className="w-5 h-5 text-anthracite-500" />
               </button>
 
-              {/* Before/After comparison */}
-              <div className="grid md:grid-cols-2 gap-0">
+              {/* Before/After comparison - stacked on mobile, side-by-side on desktop */}
+              <div className="flex flex-col md:grid md:grid-cols-2 gap-0">
                 {/* Before */}
                 <div className="relative">
                   {hasRealImages ? (
-                    <div className="relative aspect-square overflow-hidden">
+                    <div className="relative w-full aspect-auto md:aspect-square overflow-hidden">
                       <Image
                         src={beforeImage}
                         alt={beforeLabel}
                         fill
-                        className="object-cover"
+                        className="object-contain md:object-cover"
                       />
                     </div>
                   ) : (
@@ -157,12 +154,12 @@ export function GalleryItem({
                 {/* After */}
                 <div className="relative">
                   {hasRealImages ? (
-                    <div className="relative aspect-square overflow-hidden">
+                    <div className="relative w-full aspect-auto md:aspect-square overflow-hidden">
                       <Image
                         src={afterImage}
                         alt={afterLabel}
                         fill
-                        className="object-cover"
+                        className="object-contain md:object-cover"
                       />
                     </div>
                   ) : (
@@ -179,20 +176,10 @@ export function GalleryItem({
                 </div>
               </div>
 
-              {/* Info footer */}
-              {(service || barber) && (
+              {/* Info footer - simplified: only barber */}
+              {barber && (
                 <div className="p-4 bg-neutral-50 border-t">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      {service && <p className="font-medium text-anthracite-500">{service}</p>}
-                      {barber && <p className="text-sm text-neutral-600">by {barber}</p>}
-                    </div>
-                    {category && (
-                      <span className="px-3 py-1 bg-mint-100 text-mint-700 rounded-full text-xs font-medium capitalize">
-                        {category}
-                      </span>
-                    )}
-                  </div>
+                  <p className="text-sm text-neutral-600">by {barber}</p>
                 </div>
               )}
             </motion.div>

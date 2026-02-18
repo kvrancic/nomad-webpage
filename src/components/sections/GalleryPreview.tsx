@@ -50,10 +50,6 @@ export function GalleryPreview({ gallery, locale = 'hr' }: GalleryPreviewProps) 
             const isSanityItem = '_id' in item
             const itemId = isSanityItem ? item._id : item.id
             const barberName = isSanityItem && item.barber ? item.barber.name : item.barber
-            const serviceName = isSanityItem && item.service
-              ? (locale === 'en' && item.service.nameEn ? item.service.nameEn : item.service.name)
-              : 'service' in item ? item.service : ''
-            const category = item.category
 
             // If Sanity data, get image URLs
             const beforeImageUrl = isSanityItem
@@ -69,8 +65,6 @@ export function GalleryPreview({ gallery, locale = 'hr' }: GalleryPreviewProps) 
                   beforeLabel={t('before')}
                   afterLabel={t('after')}
                   barber={barberName as string}
-                  service={serviceName as string}
-                  category={category}
                   aspectRatio={index === 0 || index === 3 ? 'portrait' : 'square'}
                   beforeImage={beforeImageUrl}
                   afterImage={afterImageUrl}
