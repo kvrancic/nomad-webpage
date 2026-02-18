@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { FAQPage } from '@/components/pages/FAQPage'
+import { getFaqs } from '../../../../sanity/lib'
 
 export async function generateMetadata({
   params,
@@ -25,11 +26,13 @@ export default async function FAQ({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const faqs = await getFaqs()
+
   return (
     <>
       <Header />
-      <main className="pt-20">
-        <FAQPage />
+      <main className="pt-14">
+        <FAQPage faqs={faqs} locale={locale} />
       </main>
       <FooterWrapper />
     </>

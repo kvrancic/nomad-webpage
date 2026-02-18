@@ -28,7 +28,7 @@ export default async function GiftCards({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <GiftCardsPage />
       </main>
       <FooterWrapper />

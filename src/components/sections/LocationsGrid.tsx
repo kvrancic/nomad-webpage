@@ -39,12 +39,11 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
   }
 
   return (
-    <section className="py-16 md:py-20 bg-anthracite-500">
+    <section className="py-10 md:py-14 bg-neutral-50">
       <div className="container-custom">
         <SectionHeader
           title={t('title')}
           subtitle={t('subtitle')}
-          className="text-white [&_h2]:text-white [&_p]:text-neutral-300"
         />
 
         <motion.div
@@ -65,7 +64,7 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
                   hover
                   variant="default"
                   padding="none"
-                  className="h-full bg-anthracite-400 border border-anthracite-300"
+                  className="h-full bg-white border border-neutral-200"
                 >
                   {/* Image */}
                   {hasSanityImage ? (
@@ -87,21 +86,21 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
 
                   <CardContent className="p-5">
                     {/* Name */}
-                    <h3 className="font-display text-xl uppercase tracking-tight text-white mb-3">
+                    <h3 className="font-display text-xl uppercase tracking-tight text-anthracite-500 mb-3">
                       {locationName}
                     </h3>
 
                     {/* Address */}
-                    <div className="flex items-start gap-2 text-neutral-300 text-sm mb-3">
-                      <MapPin className="w-4 h-4 mt-0.5 text-mint-400 flex-shrink-0" />
+                    <div className="flex items-start gap-2 text-neutral-600 text-sm mb-3">
+                      <MapPin className="w-4 h-4 mt-0.5 text-mint-500 flex-shrink-0" />
                       <span>
                         {location.address}, {location.city}
                       </span>
                     </div>
 
                     {/* Hours */}
-                    <div className="flex items-start gap-2 text-neutral-300 text-sm mb-3">
-                      <Clock className="w-4 h-4 mt-0.5 text-mint-400 flex-shrink-0" />
+                    <div className="flex items-start gap-2 text-neutral-600 text-sm mb-3">
+                      <Clock className="w-4 h-4 mt-0.5 text-mint-500 flex-shrink-0" />
                       <div>
                         <p>
                           {t('hours.weekdays')}: {location.hours.weekdays}
@@ -120,9 +119,9 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
                     {/* Phone */}
                     <a
                       href={`tel:${location.phone}`}
-                      className="flex items-center gap-2 text-neutral-300 text-sm mb-3 hover:text-mint-400 transition-colors"
+                      className="flex items-center gap-2 text-neutral-600 text-sm mb-3 hover:text-mint-500 transition-colors"
                     >
-                      <Phone className="w-4 h-4 text-mint-400" />
+                      <Phone className="w-4 h-4 text-mint-500" />
                       {location.phone}
                     </a>
 
@@ -135,7 +134,7 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
                     )}
 
                     {/* Actions */}
-                    <div className="flex gap-2 pt-3 border-t border-anthracite-300">
+                    <div className="flex gap-2 pt-3 border-t border-neutral-200">
                       <Button
                         href={getBookingUrl(location)}
                         variant="primary"
@@ -148,7 +147,7 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
                         href={`https://maps.google.com/?q=Nomad+Barbershop+${encodeURIComponent(location.name)},+${encodeURIComponent(location.city)}`}
                         variant="ghost"
                         size="sm"
-                        className="text-neutral-300 hover:text-white hover:bg-anthracite-300"
+                        className="text-neutral-600 hover:text-anthracite-500 hover:bg-neutral-100"
                         icon={<ExternalLink className="w-4 h-4" />}
                       >
                         {t('directions')}

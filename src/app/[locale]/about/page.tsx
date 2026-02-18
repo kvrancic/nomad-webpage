@@ -28,7 +28,7 @@ export default async function About({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <AboutPage />
       </main>
       <FooterWrapper />

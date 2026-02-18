@@ -39,7 +39,7 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
   const hasImages = data?.images && data.images.length > 0
 
   return (
-    <section className="py-16 md:py-20 bg-neutral-50">
+    <section className="py-10 md:py-14 bg-neutral-50">
       <div className="container-custom">
         <motion.div
           variants={staggerContainer}

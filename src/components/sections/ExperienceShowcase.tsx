@@ -59,7 +59,7 @@ export function ExperienceShowcase({ data, locale = 'hr' }: ExperienceShowcasePr
   return (
     <section
       ref={containerRef}
-      className="relative py-16 md:py-20 overflow-hidden bg-anthracite-500"
+      className="relative py-10 md:py-14 overflow-hidden bg-anthracite-500"
     >
       {/* Parallax background element */}
       <motion.div
@@ -167,7 +167,7 @@ export function ExperienceShowcase({ data, locale = 'hr' }: ExperienceShowcasePr
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
-            className="relative"
+            className="relative pb-8 md:pb-0"
           >
             {/* Main image */}
             <div className="relative z-10">
@@ -192,7 +192,7 @@ export function ExperienceShowcase({ data, locale = 'hr' }: ExperienceShowcasePr
 
             {/* Floating secondary image */}
             <motion.div
-              className="absolute -bottom-8 -left-8 w-48 md:w-64 z-20"
+              className="absolute -bottom-8 left-2 md:-left-8 w-40 md:w-64 z-20"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}

@@ -37,7 +37,7 @@ export function FAQPreview({ faqs, locale = 'hr' }: FAQPreviewProps) {
       }))
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-10 md:py-14">
       <div className="container-custom max-w-3xl">
         <SectionHeader
           title={t('title')}

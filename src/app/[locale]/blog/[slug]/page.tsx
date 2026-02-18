@@ -52,7 +52,7 @@ export default async function BlogPost({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <BlogPostPage post={post} locale={locale} />
       </main>
       <FooterWrapper />

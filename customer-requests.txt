@@ -1,0 +1,43 @@
+Insighti od kopanja po stranici:
+
+Osnovni screen sa videom i tri gumba – dodati 4. gumb Lokacije. Nek redoslijed bude: Rezerviraj, Usluge, Lokacije, Poklon Kartica
+Dodati ispod ta 4 gumba linkove za instagram / facebook / tiktok?
+Dodati OG image - Joško
+
+Na homescreenu s videom bi promijenio „welcome statement“ na sljedeći način:
+„Više od frizure“ ostaviš di je, ali mu smanji font malo.
+Doživljaj koji pamtiš promijeni u „TVORNICA DOBROG RASPOLOŽENJA“ i taj font napravi većim – to nam je positioning statement. Jednostavnije rečeno - zamijeni font style prvog i drugog reda. To se isto ponavlja na dnu stranice nakon bloga, pa replicirati isto kao na welcome screenu
+
+Sto se tice alatne trake gore na vrhu – nek ide po sljedecem redoslijedu: Usluge, Lokacije, Galerija, O nama, Tim, Blog, FAQ, Poklon kartice (odvojenu stranicu Doživljaj bi izbacio, znamo promijeniti brandove whiskeya, pive, pa da ne moramo svaki put misliti zasebmno i o azuriranju websitea radi toga)
+
+Kad scrolamo dalje – di mogu mijenjati sljedeću sekciju – što te očekuje. Na edit pageu nemam taj dio da ubacim fotke ili malo prilagodim tekst. Kako da to sredim?
+
+USLUGE – kad se udje u njihovu odvojenu stranicu - možemo maknuti sub-sekcije Kosa, Brada, Paketi i ostaviti sve na jednom ekranu. Nemamo puno usluga pa ne trebamo sub-sekcije. 
+Možeš li staviti malo upaljivije da piše pridjev „Popularno“ kod Nomad Ritual i Nomad Frizura – želimo da ljudi to rezerviraju, najbolje je iskustvo za njih i najbolji prihod za nas. Možda da je narančasto uokvireno, ili onaj emoji vatrice… 
+Također, na siteu nije posložio usluge redoslijedom koji sam im dao u editoru 1-6, nego su izmiješane, ne znam zašto se to dešava.
+
+Scrolam dalje i prođem cjenik, ne znam kako updateati sekciju Whiskey, Pivo, Kava. Za taj dio nam i ne treba „saznaj više“ – dovoljno je ovo što je na homepageu. 
+
+LOKACIJE – možemo li učitati baš našu lokaciju npr Nomad barbershop Vrbani, ne samo adresu ulice? Jer kad se klikne na adresu ne vidi se barbershop uopće npr za nove lokacije (street view jos nije prosao od tad), na Kutnjačkom putu pokazuje kontejner na ulici
+GALERIJE – nešto sporo uploada slike, nisam siguran zašto taj dio ne refresha brzo kao sve ostalo. Na mobitelu kad se pogleda u galeriji before/after malo odreze obe slike – bar mi se tako cini na temelju ove jedne koju mi je uploadao – nije bas idealno
+Sto se tice opisa na fotkama – let's keep it simple. Samo fotografija s prije/poslije i koji barber, ne trebaju nam druge opcije teksta
+
+TEAM sekcija – ne vidim di se može ubaciti kod člana tima direktan link za booking na freshi kod njega? Na homepageu vidim da na njegovoj slici imam book with Stjepan, ali ne znam di unijeti link na editing pageu da vodi odmah na njegove termine? Ove druge stvari o barberima nam nisu potrebne tipa specijalnost i sl… dovoljno je ime, lokacija i link za booking. 
+
+TESTIMONIALS – kako taj dio možemo mi updateati? Vidim da možemo dodati par recenzija koje ćemo prekopirati sa googlea, ali di možemo promijeniti avg score i na temelju koliko recenzija je to izračunato? Mi na googleu imamo tipa 800 recenzija, nećemo ih tu na site kopirati, nego bi sami napisali avg score i stavili 5-6 dobrih recenzija? Tako sam te shvatio kad smo zadnji put pričali?
+FAQ – osvježio sam tekst, sve je dobro
+Može li se kod FAQ-a napraviti homepage mjesto za 5 pitanja – dodao bi i pitanje o djeci ako je moguće odmah na homepage
+
+BLOG – sve radi dobro koliko vidim, uploadao sam jedan primjer
+Na samom dnu stranice u crnom stripeu – kao da podaci ne reflektiraju promjene koje unosim – npr lokacije nisu osvježene isto kao gore na stranici, mail adresa je olivers.hr iako sam unio promjenu na nomadbarbershop.hr. Nesto nije polinkano
+
+
+About sekcija – ubacit ćemo novi tekst:
+O nama
+Nomad Barbershop priča počela  je 2021. godine s jasnom idejom: stvoriti mjesto gdje šišanje prestaje biti povremena obaveza, a postaje Ritual. Inspirirani najboljim barbershopovima diljem svijeta u kojima smo bili, željeli smo izgraditi prostor u kojem se vrhunski zanat, stil i njega spajaju s opuštenom atmosferom i osjećajem kvalitete koji se vidi i osjeti u svakom detalju.
+Nomad je zamišljen kao pauza od svakodnevice — mjesto gdje možeš usporiti, popiti kavu, pivo ili čašu pažljivo odabranog premium whiskeya, prepustiti se iskusnim rukama naših barbera i izaći izgledajući i osjećajući se bolje nego kad si ušao.
+Danas Nomad Barbershop djeluje na četiri lokacije u Zagrebu, s timom od 17 iskusnih barbera i tisućama klijenata koji nam se iznova vraćaju jer znaju da kod nas ne dolaze samo po frizuru ili bradu, već po konstantnu kvalitetu, vrhunsku uslugu i iskustvo bez kompromisa.
+
+Kada se uđe u tim ne prikazuju se slike zaposlenika koje sam ja nadodao vec je po defalutu prikazano sto je Karlo napravio, ali bez slika
+Ne mogu se prikazati ni google recenzije
+Dati nam kontrolu da mi editamo fontove ( vise od price ) I slicno, da mozemo sami rijesiti potencijalne probleme

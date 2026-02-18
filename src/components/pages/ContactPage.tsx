@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { MapPin, Clock, Phone, Car, ExternalLink, Mail, Instagram } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -9,10 +10,31 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { LOCATIONS, SITE_CONFIG, FRESHA_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityLocation, SanitySiteSettings } from '../../../sanity/lib'
 
-export function ContactPage() {
+interface ContactPageProps {
+  locations?: SanityLocation[]
+  locale?: string
+  settings?: SanitySiteSettings | null
+}
+
+export function ContactPage({ locations, locale = 'hr', settings }: ContactPageProps) {
   const t = useTranslations('contact')
   const tLoc = useTranslations('locations')
+
+  const hasSanityData = locations && locations.length > 0
+  const displayLocations = hasSanityData ? locations : LOCATIONS
+
+  const getBookingUrl = (location: SanityLocation | typeof LOCATIONS[0]) => {
+    if ('freshaUrl' in location && location.freshaUrl) {
+      return location.freshaUrl
+    }
+    if ('id' in location) {
+      return FRESHA_URLS.locations[location.id as keyof typeof FRESHA_URLS.locations] || FRESHA_URLS.default
+    }
+    return settings?.freshaUrl || FRESHA_URLS.default
+  }
 
   return (
     <>
@@ -30,88 +52,105 @@ export function ContactPage() {
             animate="visible"
             className="grid md:grid-cols-2 gap-8"
           >
-            {LOCATIONS.map((location) => (
-              <motion.div key={location.id} variants={fadeInUp}>
-                <Card hover variant="elevated" padding="none" className="overflow-hidden h-full">
-                  <div className="flex flex-col">
-                    {/* Image */}
-                    <PlaceholderImage
-                      category="location"
-                      label={location.name}
-                      aspectRatio="video"
-                      className="w-full"
-                    />
+            {displayLocations.map((location) => {
+              const locationId = '_id' in location ? location._id : location.id
+              const locationName = location.name
+              const hasSanityImage = '_id' in location && location.image
 
-                    {/* Info */}
-                    <CardContent className="p-6 flex flex-col flex-1">
-                      <h3 className="font-display text-2xl uppercase tracking-tight text-anthracite-500 mb-4">
-                        {location.name}
-                      </h3>
-
-                      {/* Address */}
-                      <div className="flex items-start gap-3 text-neutral-600 mb-3">
-                        <MapPin className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
-                        <div>
-                          <p>{location.address}</p>
-                          <p>{location.city}</p>
+              return (
+                <motion.div key={locationId} variants={fadeInUp}>
+                  <Card hover variant="elevated" padding="none" className="overflow-hidden h-full">
+                    <div className="flex flex-col">
+                      {/* Image */}
+                      {hasSanityImage ? (
+                        <div className="relative aspect-video overflow-hidden">
+                          <Image
+                            src={urlFor(location.image!).width(600).height(338).url()}
+                            alt={locationName}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
-                      </div>
-
-                      {/* Hours */}
-                      <div className="flex items-start gap-3 text-neutral-600 mb-3">
-                        <Clock className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
-                        <div>
-                          <p>{tLoc('hours.weekdays')}: {location.hours.weekdays}</p>
-                          <p>{tLoc('hours.saturday')}: {location.hours.saturday}</p>
-                          {location.hours.sunday === null && (
-                            <p className="text-neutral-400">
-                              {tLoc('hours.sunday')}: {tLoc('hours.closed')}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Phone */}
-                      <a
-                        href={`tel:${location.phone}`}
-                        className="flex items-center gap-3 text-neutral-600 mb-3 hover:text-mint-500 transition-colors"
-                      >
-                        <Phone className="w-5 h-5 text-mint-500" />
-                        {location.phone}
-                      </a>
-
-                      {/* Parking */}
-                      {location.parking && (
-                        <div className="flex items-center gap-3 text-neutral-400 mb-4">
-                          <Car className="w-5 h-5" />
-                          {tLoc('parking')}
-                        </div>
+                      ) : (
+                        <PlaceholderImage
+                          category="location"
+                          label={locationName}
+                          aspectRatio="video"
+                          className="w-full"
+                        />
                       )}
 
-                      {/* Actions */}
-                      <div className="flex gap-2 mt-auto pt-4">
-                        <Button
-                          href={FRESHA_URLS.locations[location.id as keyof typeof FRESHA_URLS.locations] || FRESHA_URLS.default}
-                          variant="primary"
-                          size="sm"
-                          className="flex-1"
+                      {/* Info */}
+                      <CardContent className="p-6 flex flex-col flex-1">
+                        <h3 className="font-display text-2xl uppercase tracking-tight text-anthracite-500 mb-4">
+                          {locationName}
+                        </h3>
+
+                        {/* Address */}
+                        <div className="flex items-start gap-3 text-neutral-600 mb-3">
+                          <MapPin className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
+                          <div>
+                            <p>{location.address}</p>
+                            <p>{location.city}</p>
+                          </div>
+                        </div>
+
+                        {/* Hours */}
+                        <div className="flex items-start gap-3 text-neutral-600 mb-3">
+                          <Clock className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
+                          <div>
+                            <p>{tLoc('hours.weekdays')}: {location.hours.weekdays}</p>
+                            <p>{tLoc('hours.saturday')}: {location.hours.saturday}</p>
+                            {location.hours.sunday === null && (
+                              <p className="text-neutral-400">
+                                {tLoc('hours.sunday')}: {tLoc('hours.closed')}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Phone */}
+                        <a
+                          href={`tel:${location.phone}`}
+                          className="flex items-center gap-3 text-neutral-600 mb-3 hover:text-mint-500 transition-colors"
                         >
-                          {tLoc('book')}
-                        </Button>
-                        <Button
-                          href={`https://maps.google.com/?q=${location.address},${location.city}`}
-                          variant="outline"
-                          size="sm"
-                          icon={<ExternalLink className="w-4 h-4" />}
-                        >
-                          {tLoc('directions')}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+                          <Phone className="w-5 h-5 text-mint-500" />
+                          {location.phone}
+                        </a>
+
+                        {/* Parking */}
+                        {location.parking && (
+                          <div className="flex items-center gap-3 text-neutral-400 mb-4">
+                            <Car className="w-5 h-5" />
+                            {tLoc('parking')}
+                          </div>
+                        )}
+
+                        {/* Actions */}
+                        <div className="flex gap-2 mt-auto pt-4">
+                          <Button
+                            href={getBookingUrl(location)}
+                            variant="primary"
+                            size="sm"
+                            className="flex-1"
+                          >
+                            {tLoc('book')}
+                          </Button>
+                          <Button
+                            href={`https://maps.google.com/?q=Nomad+Barbershop+${encodeURIComponent(locationName)},+${encodeURIComponent(location.city)}`}
+                            variant="outline"
+                            size="sm"
+                            icon={<ExternalLink className="w-4 h-4" />}
+                          >
+                            {tLoc('directions')}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </div>
+                  </Card>
+                </motion.div>
+              )
+            })}
           </motion.div>
         </div>
       </section>
@@ -176,12 +215,12 @@ export function ContactPage() {
                 {t('info.social')}
               </h3>
               <a
-                href={SITE_CONFIG.instagram}
+                href={settings?.instagram || SITE_CONFIG.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-300 hover:text-mint-400 transition-colors"
               >
-                @nomadbarbershop
+                @{(settings?.instagram || SITE_CONFIG.instagram).replace(/^https?:\/\/(www\.)?instagram\.com\//, '')}
               </a>
             </motion.div>
           </div>

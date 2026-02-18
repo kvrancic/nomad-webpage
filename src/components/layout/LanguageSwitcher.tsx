@@ -9,7 +9,11 @@ const locales = [
   { code: 'en', label: 'EN', flag: '🇬🇧' },
 ] as const
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  isTransparent?: boolean
+}
+
+export function LanguageSwitcher({ isTransparent = false }: LanguageSwitcherProps) {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
@@ -19,7 +23,10 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-1 bg-neutral-100 rounded-full p-1">
+    <div className={cn(
+      'flex items-center gap-1 rounded-full p-1',
+      isTransparent ? 'bg-white/15 backdrop-blur-sm' : 'bg-neutral-100'
+    )}>
       {locales.map((loc) => (
         <button
           key={loc.code}
@@ -27,8 +34,12 @@ export function LanguageSwitcher() {
           className={cn(
             'px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-200',
             locale === loc.code
-              ? 'bg-white text-anthracite-500 shadow-sm'
-              : 'text-neutral-500 hover:text-anthracite-500'
+              ? isTransparent
+                ? 'bg-white/25 text-white shadow-sm'
+                : 'bg-white text-anthracite-500 shadow-sm'
+              : isTransparent
+                ? 'text-white/70 hover:text-white'
+                : 'text-neutral-500 hover:text-anthracite-500'
           )}
           aria-label={`Switch to ${loc.label}`}
         >

@@ -17,7 +17,11 @@ const navItems = [
   { key: 'giftCards', href: '/gift-cards' },
 ] as const
 
-export function Navigation() {
+interface NavigationProps {
+  isTransparent?: boolean
+}
+
+export function Navigation({ isTransparent = false }: NavigationProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
 
@@ -40,7 +44,9 @@ export function Navigation() {
                 'text-sm font-medium transition-colors',
                 isActive
                   ? 'text-mint-500'
-                  : 'text-anthracite-500 hover:text-mint-500'
+                  : isTransparent
+                    ? 'text-white/90 hover:text-white drop-shadow-md'
+                    : 'text-anthracite-500 hover:text-mint-500'
               )}
             >
               {t(item.key)}

@@ -7,8 +7,9 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Accordion } from '@/components/ui/Accordion'
 import { Link } from '@/i18n/routing'
 import { fadeInUp } from '@/lib/animations'
+import type { SanityFaq } from '../../../sanity/lib'
 
-const faqKeys = [
+const fallbackFaqKeys = [
   'reservation',
   'drinks',
   'parking',
@@ -19,14 +20,27 @@ const faqKeys = [
   'first-visit',
 ]
 
-export function FAQPage() {
+interface FAQPageProps {
+  faqs?: SanityFaq[]
+  locale?: string
+}
+
+export function FAQPage({ faqs, locale = 'hr' }: FAQPageProps) {
   const t = useTranslations('faq')
 
-  const faqItems = faqKeys.map(key => ({
-    id: key,
-    title: t(`items.${key}.title`),
-    content: t(`items.${key}.content`),
-  }))
+  const hasSanityData = faqs && faqs.length > 0
+
+  const faqItems = hasSanityData
+    ? faqs.map((faq) => ({
+        id: faq._id,
+        title: locale === 'en' && faq.questionEn ? faq.questionEn : faq.question,
+        content: locale === 'en' && faq.answerEn ? faq.answerEn : faq.answer,
+      }))
+    : fallbackFaqKeys.map(key => ({
+        id: key,
+        title: t(`items.${key}.title`),
+        content: t(`items.${key}.content`),
+      }))
 
   return (
     <section className="py-16 md:py-24">

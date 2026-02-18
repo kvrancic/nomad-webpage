@@ -28,7 +28,7 @@ export default async function Experience({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <ExperiencePage />
       </main>
       <FooterWrapper />

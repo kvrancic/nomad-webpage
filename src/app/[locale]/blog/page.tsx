@@ -32,7 +32,7 @@ export default async function Blog({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <BlogPage posts={posts} locale={locale} />
       </main>
       <FooterWrapper />

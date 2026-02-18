@@ -42,7 +42,7 @@ export function ServicesPreview({ services, locale = 'hr', settings }: ServicesP
   const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
 
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="py-10 md:py-14 bg-white">
       <div className="container-custom">
         <SectionHeader
           title={t('title')}

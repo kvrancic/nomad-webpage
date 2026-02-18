@@ -32,7 +32,7 @@ export function GalleryPreview({ gallery, locale = 'hr' }: GalleryPreviewProps) 
   const displayItems = hasSanityData ? gallery.slice(0, 4) : placeholderGalleryItems
 
   return (
-    <section className="py-16 md:py-20 bg-neutral-50">
+    <section className="py-10 md:py-14 bg-white">
       <div className="container-custom">
         <SectionHeader
           title={t('title')}

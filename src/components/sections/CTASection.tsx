@@ -20,7 +20,7 @@ export function CTASection({ settings }: CTASectionProps) {
   const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-br from-mint-500 to-mint-600 relative overflow-hidden">
+    <section className="py-10 md:py-14 bg-gradient-to-br from-mint-500 to-mint-600 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />

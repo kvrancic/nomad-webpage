@@ -34,7 +34,7 @@ export default async function Team({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <TeamPage barbers={barbers} locale={locale} settings={settings} />
       </main>
       <FooterWrapper />

@@ -7,11 +7,14 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { GalleryItem } from '@/components/ui/GalleryItem'
 import { cn } from '@/lib/utils'
 import { fadeInUp } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityGalleryItem, SanitySiteSettings } from '../../../sanity/lib'
+import { SITE_CONFIG } from '@/lib/constants'
 
 type FilterCategory = 'all' | 'fades' | 'classic' | 'beard'
 
-// Placeholder gallery items
-const galleryItems = [
+// Placeholder gallery items (fallback)
+const placeholderGalleryItems = [
   { id: '1', category: 'fades' as const, barber: 'Sara', service: 'Skin Fade' },
   { id: '2', category: 'classic' as const, barber: 'Stjepan', service: 'Classic Cut' },
   { id: '3', category: 'beard' as const, barber: 'Ivan', service: 'Beard Trim' },
@@ -28,14 +31,25 @@ const galleryItems = [
 
 const filters: FilterCategory[] = ['all', 'fades', 'classic', 'beard']
 
-export function GalleryPage() {
+interface GalleryPageProps {
+  gallery?: SanityGalleryItem[]
+  locale?: string
+  settings?: SanitySiteSettings | null
+}
+
+export function GalleryPage({ gallery, locale = 'hr', settings }: GalleryPageProps) {
   const t = useTranslations('gallery')
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('all')
 
-  const filteredItems =
-    activeFilter === 'all'
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeFilter)
+  const hasSanityData = gallery && gallery.length > 0
+
+  const filteredItems = hasSanityData
+    ? activeFilter === 'all'
+      ? gallery
+      : gallery.filter((item) => item.category === activeFilter)
+    : activeFilter === 'all'
+      ? placeholderGalleryItems
+      : placeholderGalleryItems.filter((item) => item.category === activeFilter)
 
   return (
     <section className="py-16 md:py-24">
@@ -69,28 +83,42 @@ export function GalleryPage() {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className={cn(
-                  // Varying heights for masonry effect
-                  index % 5 === 0 || index % 7 === 0 ? 'row-span-2' : ''
-                )}
-              >
-                <GalleryItem
-                  beforeLabel={t('before')}
-                  afterLabel={t('after')}
-                  barber={item.barber}
-                  aspectRatio={index % 5 === 0 || index % 7 === 0 ? 'portrait' : 'square'}
-                  className="h-full"
-                />
-              </motion.div>
-            ))}
+            {filteredItems.map((item, index) => {
+              const isSanity = '_id' in item
+              const itemId = isSanity ? item._id : item.id
+              const barberName = isSanity && item.barber ? item.barber.name : ('barber' in item ? item.barber : '')
+
+              const beforeImageUrl = isSanity
+                ? urlFor(item.beforeImage).width(400).height(500).url()
+                : undefined
+              const afterImageUrl = isSanity
+                ? urlFor(item.afterImage).width(400).height(500).url()
+                : undefined
+
+              return (
+                <motion.div
+                  key={itemId}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className={cn(
+                    index % 5 === 0 || index % 7 === 0 ? 'row-span-2' : ''
+                  )}
+                >
+                  <GalleryItem
+                    beforeLabel={t('before')}
+                    afterLabel={t('after')}
+                    barber={barberName as string}
+                    aspectRatio={index % 5 === 0 || index % 7 === 0 ? 'portrait' : 'square'}
+                    className="h-full"
+                    beforeImage={beforeImageUrl}
+                    afterImage={afterImageUrl}
+                  />
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </motion.div>
 
@@ -106,12 +134,12 @@ export function GalleryPage() {
             {t('shareTransformation')}
           </p>
           <a
-            href="https://instagram.com/nomadbarbershop"
+            href={settings?.instagram || SITE_CONFIG.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-mint-500 font-medium hover:text-mint-600 transition-colors"
           >
-            @nomadbarbershop
+            @{(settings?.instagram || SITE_CONFIG.instagram).replace(/^https?:\/\/(www\.)?instagram\.com\//, '')}
           </a>
         </motion.div>
       </div>

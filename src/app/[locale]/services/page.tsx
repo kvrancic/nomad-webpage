@@ -36,7 +36,7 @@ export default async function Services({
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-14">
         <ServicesPage services={services} locale={locale} settings={settings} />
       </main>
       <FooterWrapper />

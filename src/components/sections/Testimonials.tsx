@@ -57,7 +57,7 @@ export function Testimonials({ testimonials, locale = 'hr', settings }: Testimon
     ?? (hasSanityData ? testimonials.length : 200)
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-10 md:py-14">
       <div className="container-custom">
         <SectionHeader
           title={t('title')}

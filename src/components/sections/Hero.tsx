@@ -69,7 +69,7 @@ export function Hero({ videoUrl, settings }: HeroProps) {
 
           {/* Big heading - "TVORNICA DOBROG RASPOLOŽENJA" */}
           <motion.h1
-            className="heading-1 mb-10"
+            className="heading-1 !text-5xl sm:!text-6xl md:!text-6xl lg:!text-7xl mb-10"
             variants={textRevealContainer}
             initial="hidden"
             animate="visible"
