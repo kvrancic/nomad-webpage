@@ -79,9 +79,9 @@ export function ServicesPreview({ services, locale = 'hr', settings }: ServicesP
                         </h3>
                         <div className="flex flex-wrap gap-2 mt-2">
                           {isPopular && (
-                            <Badge variant="mint" size="sm">
-                              {t('popular')}
-                            </Badge>
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border-2 border-amber-400 bg-amber-50 text-amber-700 text-xs font-semibold">
+                              🔥 {t('popular')}
+                            </span>
                           )}
                           <Badge variant="default" size="sm" className="text-xs">
                             {t(`tabs.${serviceCategory}`)}

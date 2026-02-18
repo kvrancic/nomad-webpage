@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ServicesPage } from '@/components/pages/ServicesPage'
+import { getServices, getSiteSettings } from '../../../../sanity/lib'
 
 export async function generateMetadata({
   params,
@@ -27,11 +28,16 @@ export default async function Services({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const [services, settings] = await Promise.all([
+    getServices(),
+    getSiteSettings(),
+  ])
+
   return (
     <>
       <Header />
       <main className="pt-20">
-        <ServicesPage />
+        <ServicesPage services={services} locale={locale} settings={settings} />
       </main>
       <Footer />
     </>

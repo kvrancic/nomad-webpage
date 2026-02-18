@@ -40,7 +40,7 @@ export const barbersQuery = groq`
 
 // Services
 export const servicesQuery = groq`
-  *[_type == "service"] | order(category asc, order asc) {
+  *[_type == "service"] | order(order asc) {
     _id,
     name,
     nameEn,
