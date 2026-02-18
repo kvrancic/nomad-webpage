@@ -22,6 +22,7 @@ import {
   getFeaturedTestimonials,
   getBlogPosts,
   getSiteSettings,
+  urlFor,
 } from '../../../sanity/lib'
 
 export async function generateMetadata({
@@ -44,6 +45,9 @@ export async function generateMetadata({
       description: seoDescription || t('description'),
       locale: locale === 'hr' ? 'hr_HR' : 'en_US',
       type: 'website',
+      ...(settings?.ogImage && {
+        images: [{ url: urlFor(settings.ogImage).width(1200).height(630).url() }],
+      }),
     },
   }
 }
