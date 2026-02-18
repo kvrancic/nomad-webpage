@@ -145,7 +145,7 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
                         {t('book')}
                       </Button>
                       <Button
-                        href={`https://maps.google.com/?q=${location.address},${location.city}`}
+                        href={`https://maps.google.com/?q=Nomad+Barbershop+${encodeURIComponent(location.name)},+${encodeURIComponent(location.city)}`}
                         variant="ghost"
                         size="sm"
                         className="text-neutral-300 hover:text-white hover:bg-anthracite-300"
