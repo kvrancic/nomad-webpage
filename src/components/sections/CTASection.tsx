@@ -35,19 +35,19 @@ export function CTASection({ settings }: CTASectionProps) {
           viewport={{ once: true, margin: '-100px' }}
           className="text-center text-white"
         >
-          <motion.h2
-            variants={fadeInUp}
-            className="heading-2 mb-4"
-          >
-            {tHero('headline')}
-          </motion.h2>
-
           <motion.p
             variants={fadeInUp}
-            className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-white/80 mb-4"
+          >
+            {tHero('headline')}
+          </motion.p>
+
+          <motion.h2
+            variants={fadeInUp}
+            className="heading-2 mb-10"
           >
             {tHero('subheadline')}
-          </motion.p>
+          </motion.h2>
 
           <motion.div
             variants={fadeInUp}

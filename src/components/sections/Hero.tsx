@@ -2,11 +2,12 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { ArrowDown, Gift } from 'lucide-react'
+import { ArrowDown, Gift, MapPin } from 'lucide-react'
+import { Instagram, Facebook } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { HeroPlaceholder } from '@/components/shared/PlaceholderImage'
 import { Link } from '@/i18n/routing'
-import { FRESHA_URLS } from '@/lib/constants'
+import { FRESHA_URLS, SITE_CONFIG } from '@/lib/constants'
 import {
   staggerContainer,
   fadeInUp,
@@ -23,7 +24,10 @@ interface HeroProps {
 export function Hero({ videoUrl, settings }: HeroProps) {
   const t = useTranslations('hero')
 
-  const headlineChars = t('headline').split('')
+  const subheadlineChars = t('subheadline').split('')
+
+  const instagramUrl = settings?.instagram || SITE_CONFIG.instagram
+  const facebookUrl = settings?.facebook || SITE_CONFIG.facebook
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -55,14 +59,22 @@ export function Hero({ videoUrl, settings }: HeroProps) {
           animate="visible"
           className="max-w-4xl mx-auto"
         >
-          {/* Headline with character animation */}
+          {/* Small headline - "Više od frizure." */}
+          <motion.p
+            variants={fadeInUp}
+            className="text-xl md:text-2xl text-white/80 mb-6 font-light"
+          >
+            {t('headline')}
+          </motion.p>
+
+          {/* Big heading - "TVORNICA DOBROG RASPOLOŽENJA" */}
           <motion.h1
-            className="heading-1 mb-6"
+            className="heading-1 mb-10"
             variants={textRevealContainer}
             initial="hidden"
             animate="visible"
           >
-            {headlineChars.map((char, index) => (
+            {subheadlineChars.map((char, index) => (
               <motion.span
                 key={index}
                 variants={textRevealCharacter}
@@ -73,21 +85,28 @@ export function Hero({ videoUrl, settings }: HeroProps) {
             ))}
           </motion.h1>
 
-          {/* Subheadline */}
-          <motion.p
-            variants={fadeInUp}
-            className="text-xl md:text-2xl text-white/80 mb-10 font-light"
-          >
-            {t('subheadline')}
-          </motion.p>
-
-          {/* CTAs - Now with 3 buttons */}
+          {/* CTAs - 4 buttons: Rezerviraj, Usluge, Lokacije, Poklon Kartica */}
           <motion.div
             variants={fadeInUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button href={settings?.freshaUrl || FRESHA_URLS.default} variant="primary" size="lg">
               {t('cta')}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white/30 text-white hover:bg-white hover:text-anthracite-500"
+            >
+              <Link href="/services">{t('ctaSecondary')}</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white/30 text-white hover:bg-white hover:text-anthracite-500"
+              icon={<MapPin className="w-5 h-5" />}
+            >
+              <Link href="/locations">{t('ctaLocations')}</Link>
             </Button>
             <Button
               href={settings?.giftCardsUrl || FRESHA_URLS.giftCards}
@@ -98,13 +117,31 @@ export function Hero({ videoUrl, settings }: HeroProps) {
             >
               {t('ctaGiftCard')}
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white/30 text-white hover:bg-white hover:text-anthracite-500"
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div
+            variants={fadeInUp}
+            className="flex items-center justify-center gap-4 mt-6"
+          >
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              aria-label="Instagram"
             >
-              <Link href="/services">{t('ctaSecondary')}</Link>
-            </Button>
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/60 hover:text-white transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook className="w-5 h-5" />
+            </a>
           </motion.div>
         </motion.div>
       </div>
