@@ -26,7 +26,6 @@ Pozdrav! Ovo je pregled svih promjena koje su napravljene na temelju vaših kome
 - Navigacija sada ide: **Usluge → Lokacije → Galerija → O nama → Tim → Blog → FAQ → Poklon kartice**
 - **"Doživljaj" je maknut** iz navigacije (desktop, mobitel i footer)
 - Sekcija Whiskey/Pivo/Kava i dalje postoji na homepage-u, ali bez "Saznaj više" linka
-- Stranica /experience tehnički još postoji za direktne linkove, ali nije više u navigaciji
 
 ---
 
@@ -34,9 +33,15 @@ Pozdrav! Ovo je pregled svih promjena koje su napravljene na temelju vaših kome
 
 **Što ste tražili:** Kako editirati tu sekciju (fotke, tekst)?
 
-**Odgovor:** Ova sekcija je trenutno bazirana na prijevodima (hr.json/en.json), a ne na Sanity CMS-u. Prebacivanje na CMS bi zahtijevalo značajan razvoj (nova shema, novi upiti, refaktoring komponente).
+**Što je napravljeno:**
+- Sekcija je sada **potpuno editabilna iz Sanity Studija**
+- Možete mijenjati: badge tekst, naslov, podnaslov, opis (HR i EN)
+- Možete uploadati **do 4 slike** za grid na lijevoj strani
 
-**Alternativa:** Ako trebate promijeniti tekst ili slike u toj sekciji, javite developeru — promjena je brza i jednostavna.
+**Kako editirati:**
+1. Otvorite **Sanity Studio** → **What to Expect Section**
+2. Izmijenite tekstove i/ili uploadajte slike
+3. Kliknite **Publish**
 
 ---
 
@@ -56,7 +61,17 @@ Pozdrav! Ovo je pregled svih promjena koje su napravljene na temelju vaših kome
 
 **Što ste tražili:** Kako updateati tu sekciju? Dovoljno je ovo na homepage-u.
 
-**Odgovor:** Ova sekcija je trenutno hardkodirana. Kako ste potvrdili da je dovoljno ovo što je na homepage-u, link "Saznaj više" je maknut. Ako trebate promijeniti brendove ili tekstove, javite developeru.
+**Što je napravljeno:**
+- Link "Saznaj više" je maknut
+- Sekcija je sada **potpuno editabilna iz Sanity Studija**
+- Možete mijenjati: badge, naslov, podnaslov, opis (HR i EN)
+- Možete mijenjati **4 feature kartice** (Whiskey, Pivo, Kava, Atmosfera) — svaka ima naslov i opis
+- Možete uploadati **glavnu sliku** i **sekundarnu sliku**
+
+**Kako editirati:**
+1. Otvorite **Sanity Studio** → **Experience Section**
+2. Izmijenite tekstove, feature kartice i/ili slike
+3. Kliknite **Publish**
 
 ---
 
@@ -192,7 +207,12 @@ Omogućavanje kontrole fontova iz CMS-a je izuzetno kompleksno (zahtijeva custom
 Automatska integracija zahtijeva: Google My Business API, API ključ, server-side fetching, rate limiting. **Alternativa:** Koristite nova polja za ručni unos avg score-a i broja recenzija, a odabrane recenzije dodajte ručno u Testimonials sekciju.
 
 ### "Što te očekuje" i Whiskey/Pivo/Kava CMS editiranje
-Ove sekcije su bazirane na prijevodima/hardkodirane. Prebacivanje na CMS zahtijeva značajan razvoj. **Alternativa:** Javite developeru za promjene teksta — promjena je brza.
+~~Ove sekcije su bazirane na prijevodima/hardkodirane.~~ **UPDATE:** Obje sekcije su sada dostupne u Sanity Studiju!
+
+- **Sanity Studio** → **What to Expect Section**: možete mijenjati badge, naslov, podnaslov, opis (HR/EN), te uploadati do 4 slike
+- **Sanity Studio** → **Experience Section**: možete mijenjati sve tekstove i 4 feature kartice (whiskey, pivo, kava, atmosfera), te uploadati glavnu i sekundarnu sliku
+
+Postojeći tekst je automatski importiran — samo pokrenite `npm run seed` ako podaci još nisu u Sanity Studiju.
 
 ---
 
