@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { BlogPostPage } from '@/components/pages/BlogPostPage'
 import { getBlogPost, getBlogPosts } from '../../../../../sanity/lib'
 
@@ -55,7 +55,7 @@ export default async function BlogPost({
       <main className="pt-20">
         <BlogPostPage post={post} locale={locale} />
       </main>
-      <Footer />
+      <FooterWrapper />
     </>
   )
 }

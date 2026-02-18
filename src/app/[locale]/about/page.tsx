@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { AboutPage } from '@/components/pages/AboutPage'
 
 export async function generateMetadata({
@@ -31,7 +31,7 @@ export default async function About({
       <main className="pt-20">
         <AboutPage />
       </main>
-      <Footer />
+      <FooterWrapper />
     </>
   )
 }

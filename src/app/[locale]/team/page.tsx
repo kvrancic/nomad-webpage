@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { TeamPage } from '@/components/pages/TeamPage'
 import { getBarbers, getSiteSettings } from '../../../../sanity/lib'
 
@@ -37,7 +37,7 @@ export default async function Team({
       <main className="pt-20">
         <TeamPage barbers={barbers} locale={locale} settings={settings} />
       </main>
-      <Footer />
+      <FooterWrapper />
     </>
   )
 }

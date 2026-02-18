@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Instagram, Facebook, Mail, Phone } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { SITE_CONFIG, LOCATIONS } from '@/lib/constants'
+import type { SanityLocation, SanitySiteSettings } from '../../../sanity/lib'
 
 const navLinks = [
   { key: 'services', href: '/services' as const },
@@ -16,11 +17,23 @@ const navLinks = [
   { key: 'giftCards', href: '/gift-cards' as const },
 ]
 
-export function Footer() {
+interface FooterProps {
+  locations?: SanityLocation[]
+  settings?: SanitySiteSettings | null
+}
+
+export function Footer({ locations, settings }: FooterProps) {
   const t = useTranslations('footer')
   const tNav = useTranslations('navigation')
 
   const currentYear = new Date().getFullYear()
+
+  // Use Sanity data if available, otherwise fall back to constants
+  const displayLocations = locations && locations.length > 0 ? locations : LOCATIONS
+  const email = settings?.email || SITE_CONFIG.email
+  const phone = settings?.phone || SITE_CONFIG.phone
+  const instagramUrl = settings?.instagram || SITE_CONFIG.instagram
+  const facebookUrl = settings?.facebook || SITE_CONFIG.facebook
 
   return (
     <footer className="bg-anthracite-500 text-white">
@@ -39,7 +52,7 @@ export function Footer() {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href={SITE_CONFIG.instagram}
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-400 hover:text-mint-400 transition-colors"
@@ -48,7 +61,7 @@ export function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href={SITE_CONFIG.facebook}
+                href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-neutral-400 hover:text-mint-400 transition-colors"
@@ -57,14 +70,14 @@ export function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href={`mailto:${SITE_CONFIG.email}`}
+                href={`mailto:${email}`}
                 className="text-neutral-400 hover:text-mint-400 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-5 h-5" />
               </a>
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={`tel:${phone}`}
                 className="text-neutral-400 hover:text-mint-400 transition-colors"
                 aria-label="Phone"
               >
@@ -98,16 +111,19 @@ export function Footer() {
               {t('locations')}
             </h3>
             <ul className="space-y-3">
-              {LOCATIONS.map((location) => (
-                <li key={location.id}>
-                  <span className="text-white text-sm font-medium block">
-                    {location.name}
-                  </span>
-                  <span className="text-neutral-400 text-sm">
-                    {location.address}
-                  </span>
-                </li>
-              ))}
+              {displayLocations.map((location) => {
+                const locationId = '_id' in location ? location._id : location.id
+                return (
+                  <li key={locationId}>
+                    <span className="text-white text-sm font-medium block">
+                      {location.name}
+                    </span>
+                    <span className="text-neutral-400 text-sm">
+                      {location.address}
+                    </span>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
@@ -118,18 +134,18 @@ export function Footer() {
             </h3>
             <div className="space-y-3">
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={`tel:${phone}`}
                 className="flex items-center gap-2 text-neutral-300 text-sm hover:text-mint-400 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                {SITE_CONFIG.phone}
+                {phone}
               </a>
               <a
-                href={`mailto:${SITE_CONFIG.email}`}
+                href={`mailto:${email}`}
                 className="flex items-center gap-2 text-neutral-300 text-sm hover:text-mint-400 transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                {SITE_CONFIG.email}
+                {email}
               </a>
             </div>
           </div>

@@ -119,7 +119,7 @@ export default async function HomePage({
         {/* 11. Final CTA */}
         <CTASection settings={settings} />
       </main>
-      <Footer />
+      <Footer locations={locations} settings={settings} />
     </>
   )
 }
