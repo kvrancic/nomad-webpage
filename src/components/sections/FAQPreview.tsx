@@ -16,7 +16,7 @@ interface FAQPreviewProps {
 }
 
 // Fallback FAQ keys for translation-based content
-const faqKeys = ['reservation', 'drinks', 'parking', 'giftcards']
+const faqKeys = ['reservation', 'drinks', 'parking', 'giftcards', 'kids']
 
 export function FAQPreview({ faqs, locale = 'hr' }: FAQPreviewProps) {
   const t = useTranslations('faq')
@@ -25,7 +25,7 @@ export function FAQPreview({ faqs, locale = 'hr' }: FAQPreviewProps) {
   const hasSanityData = faqs && faqs.length > 0
 
   const faqItems = hasSanityData
-    ? faqs.slice(0, 4).map((faq) => ({
+    ? faqs.map((faq) => ({
         id: faq._id,
         title: locale === 'en' && faq.questionEn ? faq.questionEn : faq.question,
         content: locale === 'en' && faq.answerEn ? faq.answerEn : faq.answer,
