@@ -2,14 +2,22 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { BARBERS, LOCATIONS, FRESHA_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInUp, imageZoom } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityBarber, SanitySiteSettings } from '../../../sanity/lib'
+
+interface TeamPageProps {
+  barbers?: SanityBarber[]
+  locale?: string
+  settings?: SanitySiteSettings | null
+}
 
 // Helper to get location name by id
 const getLocationName = (locationId: string) => {
@@ -17,8 +25,12 @@ const getLocationName = (locationId: string) => {
   return location?.name || locationId
 }
 
-export function TeamPage() {
+export function TeamPage({ barbers, locale = 'hr', settings }: TeamPageProps) {
   const t = useTranslations('team')
+
+  const hasSanityData = barbers && barbers.length > 0
+  const displayBarbers = hasSanityData ? barbers : BARBERS
+  const globalBookingUrl = settings?.freshaUrl || FRESHA_URLS.default
 
   return (
     <section className="py-16 md:py-24">
@@ -34,72 +46,87 @@ export function TeamPage() {
           animate="visible"
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {BARBERS.map((barber) => (
-            <motion.div key={barber.id} variants={fadeInUp}>
-              <Card hover variant="default" padding="none" className="overflow-hidden group">
-                {/* Image */}
-                <motion.div
-                  className="relative overflow-hidden"
-                  initial="rest"
-                  whileHover="hover"
-                >
-                  <motion.div variants={imageZoom}>
-                    <PlaceholderImage
-                      category="barber"
-                      label={barber.name}
-                      aspectRatio="portrait"
-                    />
-                  </motion.div>
+          {displayBarbers.map((barber) => {
+            const barberId = '_id' in barber ? barber._id : barber.id
+            const barberName = barber.name
+            const barberRole = '_id' in barber
+              ? (locale === 'en' && barber.roleEn ? barber.roleEn : barber.role)
+              : barber.role
+            const hasSanityPhoto = '_id' in barber && barber.photo
+            const locationName = '_id' in barber && barber.location
+              ? barber.location.name
+              : 'location' in barber
+                ? getLocationName(barber.location as string)
+                : ''
 
-                  {/* Overlay with info on hover */}
+            // Use barber's bookingUrl, fall back to global
+            const bookingUrl = '_id' in barber && barber.bookingUrl
+              ? barber.bookingUrl
+              : globalBookingUrl
+
+            return (
+              <motion.div key={barberId} variants={fadeInUp}>
+                <Card hover variant="default" padding="none" className="overflow-hidden group">
+                  {/* Image */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-anthracite-900 via-anthracite-900/50 to-transparent flex flex-col justify-end p-6"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    className="relative overflow-hidden"
+                    initial="rest"
+                    whileHover="hover"
                   >
-                    <p className="text-white/80 text-sm mb-3">{barber.bio}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {barber.specialties.map((specialty) => (
-                        <Badge key={specialty} variant="mint" size="sm">
-                          {specialty}
-                        </Badge>
-                      ))}
-                    </div>
-                    <Button
-                      href={FRESHA_URLS.default}
-                      variant="primary"
-                      size="sm"
-                      className="w-full"
+                    <motion.div variants={imageZoom}>
+                      {hasSanityPhoto ? (
+                        <div className="relative aspect-[3/4] overflow-hidden">
+                          <Image
+                            src={urlFor(barber.photo!).width(400).height(533).url()}
+                            alt={barberName}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <PlaceholderImage
+                          category="barber"
+                          label={barberName}
+                          aspectRatio="portrait"
+                        />
+                      )}
+                    </motion.div>
+
+                    {/* Simplified overlay - just booking button */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-anthracite-900 via-anthracite-900/50 to-transparent flex flex-col justify-end p-6"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      {t('bookWith', { name: barber.name })}
-                    </Button>
+                      <Button
+                        href={bookingUrl}
+                        variant="primary"
+                        size="sm"
+                        className="w-full"
+                      >
+                        {t('bookWith', { name: barberName })}
+                      </Button>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
 
-                {/* Basic info always visible */}
-                <div className="p-6">
-                  <h3 className="font-display text-2xl uppercase tracking-tight text-anthracite-500">
-                    {barber.name}
-                  </h3>
-                  <p className="text-neutral-500">{barber.role}</p>
-                  <p className="text-neutral-400 text-sm mt-2 flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {getLocationName(barber.location)}
-                  </p>
-
-                  {/* Specialties always visible on mobile */}
-                  <div className="flex flex-wrap gap-1 mt-3 lg:hidden">
-                    {barber.specialties.map((specialty) => (
-                      <Badge key={specialty} variant="default" size="sm">
-                        {specialty}
-                      </Badge>
-                    ))}
+                  {/* Basic info always visible: name, role, location */}
+                  <div className="p-6">
+                    <h3 className="font-display text-2xl uppercase tracking-tight text-anthracite-500">
+                      {barberName}
+                    </h3>
+                    <p className="text-neutral-500">{barberRole}</p>
+                    {locationName && (
+                      <p className="text-neutral-400 text-sm mt-2 flex items-center gap-1">
+                        <MapPin className="w-4 h-4" />
+                        {locationName}
+                      </p>
+                    )}
                   </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                </Card>
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>

@@ -28,6 +28,7 @@ export const barbersQuery = groq`
     bio,
     bioEn,
     photo,
+    bookingUrl,
     specialties,
     instagram,
     location->{

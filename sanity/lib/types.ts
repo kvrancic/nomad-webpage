@@ -54,6 +54,7 @@ export interface SanityBarber {
   bio?: string
   bioEn?: string
   photo?: SanityImage
+  bookingUrl?: string
   specialties?: string[]
   instagram?: string
   location?: {

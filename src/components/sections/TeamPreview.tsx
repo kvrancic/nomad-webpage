@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { Badge } from '@/components/ui/Badge'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
@@ -33,7 +32,7 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
   // Use Sanity data if available, otherwise fall back to constants
   const hasSanityData = barbers && barbers.length > 0
   const displayBarbers = hasSanityData ? barbers.slice(0, 3) : BARBERS.slice(0, 3)
-  const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
+  const globalBookingUrl = settings?.freshaUrl || FRESHA_URLS.default
 
   return (
     <section className="py-16 md:py-20">
@@ -56,16 +55,17 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
             const barberRole = '_id' in barber
               ? (locale === 'en' && barber.roleEn ? barber.roleEn : barber.role)
               : barber.role
-            const barberBio = '_id' in barber
-              ? (locale === 'en' && barber.bioEn ? barber.bioEn : barber.bio)
-              : barber.bio
-            const barberSpecialties = barber.specialties || []
             const hasSanityPhoto = '_id' in barber && barber.photo
             const locationName = '_id' in barber && barber.location
               ? barber.location.name
               : 'location' in barber
                 ? getLocationName(barber.location as string)
                 : ''
+
+            // Use barber's bookingUrl, fall back to location freshaUrl, then global
+            const bookingUrl = '_id' in barber && barber.bookingUrl
+              ? barber.bookingUrl
+              : globalBookingUrl
 
             return (
               <motion.div key={barberId} variants={fadeInUp}>
@@ -95,25 +95,13 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
                       )}
                     </motion.div>
 
-                    {/* Overlay with info on hover */}
+                    {/* Simplified overlay - just booking button */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-t from-anthracite-900 via-anthracite-900/50 to-transparent flex flex-col justify-end p-6"
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {barberBio && (
-                        <p className="text-white/80 text-sm mb-3">{barberBio}</p>
-                      )}
-                      {barberSpecialties.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {barberSpecialties.map((specialty) => (
-                            <Badge key={specialty} variant="mint" size="sm">
-                              {specialty}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
                       <Button
                         href={bookingUrl}
                         variant="primary"

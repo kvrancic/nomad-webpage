@@ -68,6 +68,12 @@ export const barber = defineType({
       to: [{ type: 'location' }],
     }),
     defineField({
+      name: 'bookingUrl',
+      title: 'Booking URL',
+      type: 'url',
+      description: 'Direct Fresha booking link for this barber',
+    }),
+    defineField({
       name: 'instagram',
       title: 'Instagram Handle',
       type: 'string',
