@@ -86,8 +86,6 @@ export function GalleryPage() {
                   beforeLabel={t('before')}
                   afterLabel={t('after')}
                   barber={item.barber}
-                  service={item.service}
-                  category={item.category}
                   aspectRatio={index % 5 === 0 || index % 7 === 0 ? 'portrait' : 'square'}
                   className="h-full"
                 />
