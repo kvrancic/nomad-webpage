@@ -68,6 +68,20 @@ export const siteSettings = defineType({
       description: 'Default social sharing image',
     }),
     defineField({
+      name: 'reviewAverageScore',
+      title: 'Review Average Score',
+      type: 'number',
+      description: 'Manual average review score (e.g. 4.9)',
+      validation: (Rule) => Rule.min(1).max(5),
+    }),
+    defineField({
+      name: 'reviewTotalCount',
+      title: 'Review Total Count',
+      type: 'number',
+      description: 'Total number of reviews across all platforms (e.g. 800)',
+      validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
       name: 'seoTitle',
       title: 'SEO Title (Croatian)',
       type: 'string',

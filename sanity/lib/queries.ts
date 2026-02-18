@@ -207,6 +207,8 @@ export const siteSettingsQuery = groq`
     heroVideo,
     heroImage,
     ogImage,
+    reviewAverageScore,
+    reviewTotalCount,
     seoTitle,
     seoTitleEn,
     seoDescription,

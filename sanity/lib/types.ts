@@ -162,6 +162,8 @@ export interface SanitySiteSettings {
   heroVideo?: SanityFile
   heroImage?: SanityImage
   ogImage?: SanityImage
+  reviewAverageScore?: number
+  reviewTotalCount?: number
   seoTitle?: string
   seoTitleEn?: string
   seoDescription?: string

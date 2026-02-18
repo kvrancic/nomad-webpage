@@ -108,7 +108,7 @@ export default async function HomePage({
         <TeamPreview barbers={barbers} locale={locale} settings={settings} />
 
         {/* 8. Testimonials */}
-        <Testimonials testimonials={testimonials} locale={locale} />
+        <Testimonials testimonials={testimonials} locale={locale} settings={settings} />
 
         {/* 9. FAQ Preview */}
         <FAQPreview faqs={faqs} locale={locale} />

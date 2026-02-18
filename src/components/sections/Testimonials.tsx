@@ -9,11 +9,12 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { cn } from '@/lib/utils'
 import { urlFor } from '../../../sanity/lib'
-import type { SanityTestimonial } from '../../../sanity/lib'
+import type { SanityTestimonial, SanitySiteSettings } from '../../../sanity/lib'
 
 interface TestimonialsProps {
   testimonials?: SanityTestimonial[]
   locale?: string
+  settings?: SanitySiteSettings | null
 }
 
 // Fallback review meta data for translation-based content
@@ -40,17 +41,20 @@ function StarRating({ rating }: { rating: number }) {
   )
 }
 
-export function Testimonials({ testimonials, locale = 'hr' }: TestimonialsProps) {
+export function Testimonials({ testimonials, locale = 'hr', settings }: TestimonialsProps) {
   const t = useTranslations('testimonials')
 
   // Use Sanity data if available, otherwise fall back to translations
   const hasSanityData = testimonials && testimonials.length > 0
   const displayTestimonials = hasSanityData ? testimonials.slice(0, 4) : reviewMeta
 
-  const averageRating = hasSanityData
-    ? (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1)
-    : 4.9
-  const totalReviews = hasSanityData ? testimonials.length : 200
+  const averageRating = settings?.reviewAverageScore
+    ? settings.reviewAverageScore.toFixed(1)
+    : hasSanityData
+      ? (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1)
+      : '4.9'
+  const totalReviews = settings?.reviewTotalCount
+    ?? (hasSanityData ? testimonials.length : 200)
 
   return (
     <section className="py-16 md:py-20">
