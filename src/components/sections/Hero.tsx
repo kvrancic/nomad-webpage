@@ -24,7 +24,7 @@ interface HeroProps {
 export function Hero({ videoUrl, settings }: HeroProps) {
   const t = useTranslations('hero')
 
-  const subheadlineChars = t('subheadline').split('')
+  const subheadlineWords = t('subheadline').split(' ')
 
   const instagramUrl = settings?.instagram || SITE_CONFIG.instagram
   const facebookUrl = settings?.facebook || SITE_CONFIG.facebook
@@ -69,18 +69,18 @@ export function Hero({ videoUrl, settings }: HeroProps) {
 
           {/* Big heading - "TVORNICA DOBROG RASPOLOŽENJA" */}
           <motion.h1
-            className="heading-1 !text-5xl sm:!text-6xl md:!text-6xl lg:!text-7xl mb-10"
+            className="heading-1 !text-7xl sm:!text-8xl md:!text-8xl lg:!text-9xl mb-10"
             variants={textRevealContainer}
             initial="hidden"
             animate="visible"
           >
-            {subheadlineChars.map((char, index) => (
+            {subheadlineWords.map((word, index) => (
               <motion.span
                 key={index}
                 variants={textRevealCharacter}
-                className="inline-block"
+                className="block md:inline-block md:mr-[0.25em] md:last:mr-0"
               >
-                {char === ' ' ? '\u00A0' : char}
+                {word}
               </motion.span>
             ))}
           </motion.h1>

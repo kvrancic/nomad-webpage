@@ -110,9 +110,9 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
         {/* Carousel */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hide pb-4 pl-4 -ml-4 md:pl-0 md:ml-0 snap-x snap-mandatory"
+          className="flex gap-4 overflow-x-auto overflow-y-hidden scrollbar-hide pb-4 -mr-4 md:mr-0 snap-x snap-mandatory"
         >
-          {displayBarbers.map((barber) => {
+          {displayBarbers.map((barber, index) => {
             const barberId = '_id' in barber ? barber._id : barber.id
             const barberName = barber.name
             const barberRole = '_id' in barber
@@ -137,7 +137,7 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="w-[260px] md:w-[280px] shrink-0 snap-start"
+                className={`w-[260px] md:w-[280px] shrink-0 snap-start${index === 0 ? ' ml-4 md:ml-0' : ''}`}
               >
                 <Card hover variant="default" padding="none" className="overflow-hidden group">
                   {/* Image */}

@@ -170,6 +170,42 @@ export interface SanitySiteSettings {
   seoDescriptionEn?: string
 }
 
+export interface SanityAboutPage {
+  storyTitle: string
+  storyTitleEn?: string
+  storyContent: string
+  storyContentEn?: string
+  storyContent2?: string
+  storyContent2En?: string
+  storyContent3?: string
+  storyContent3En?: string
+  storyImage?: SanityImage
+  philosophyTitle: string
+  philosophyTitleEn?: string
+  philosophyContent: string
+  philosophyContentEn?: string
+  philosophyContent2?: string
+  philosophyContent2En?: string
+  philosophyContent3?: string
+  philosophyContent3En?: string
+  philosophyImage?: SanityImage
+}
+
+export interface SanityGiftCardsPage {
+  heroTitle: string
+  heroTitleEn?: string
+  heroSubtitle?: string
+  heroSubtitleEn?: string
+  heroDescription?: string
+  heroDescriptionEn?: string
+  heroImage?: SanityImage
+  benefitsTitle?: string
+  benefitsTitleEn?: string
+  benefitsDescription?: string
+  benefitsDescriptionEn?: string
+  benefitsImage?: SanityImage
+}
+
 export interface SanityWhatToExpect {
   badge?: string
   badgeEn?: string

@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Header } from '@/components/layout/Header'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { AboutPage } from '@/components/pages/AboutPage'
+import { getAboutPage, getSiteSettings } from '../../../../sanity/lib'
 
 export async function generateMetadata({
   params,
@@ -25,11 +26,16 @@ export default async function About({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const [aboutData, settings] = await Promise.all([
+    getAboutPage(),
+    getSiteSettings(),
+  ])
+
   return (
     <>
       <Header />
       <main className="pt-14">
-        <AboutPage />
+        <AboutPage data={aboutData} locale={locale} settings={settings} />
       </main>
       <FooterWrapper />
     </>

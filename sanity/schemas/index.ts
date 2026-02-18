@@ -8,6 +8,8 @@ import { testimonial } from './testimonial'
 import { siteSettings } from './siteSettings'
 import { whatToExpect } from './whatToExpect'
 import { experienceShowcase } from './experienceShowcase'
+import { aboutPage } from './aboutPage'
+import { giftCardsPage } from './giftCardsPage'
 
 export const schemaTypes = [
   // Documents
@@ -21,4 +23,6 @@ export const schemaTypes = [
   siteSettings,
   whatToExpect,
   experienceShowcase,
+  aboutPage,
+  giftCardsPage,
 ]

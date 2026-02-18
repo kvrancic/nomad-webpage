@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { Gift, CreditCard, Send, Check } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
@@ -9,6 +10,8 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { FRESHA_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations'
+import { urlFor } from '../../../sanity/lib'
+import type { SanityGiftCardsPage, SanitySiteSettings } from '../../../sanity/lib'
 
 const stepKeys = [
   { key: 'amount', icon: CreditCard, step: 1 },
@@ -23,8 +26,33 @@ const benefitKeys = [
   'allServices',
 ] as const
 
-export function GiftCardsPage() {
+interface GiftCardsPageProps {
+  data?: SanityGiftCardsPage | null
+  locale?: string
+  settings?: SanitySiteSettings | null
+}
+
+export function GiftCardsPage({ data, locale = 'hr', settings }: GiftCardsPageProps) {
   const t = useTranslations('giftCards')
+
+  const heroTitle = data
+    ? (locale === 'en' && data.heroTitleEn ? data.heroTitleEn : data.heroTitle)
+    : t('title')
+  const heroSubtitle = data
+    ? (locale === 'en' && data.heroSubtitleEn ? data.heroSubtitleEn : data.heroSubtitle)
+    : t('subtitle')
+  const heroDescription = data
+    ? (locale === 'en' && data.heroDescriptionEn ? data.heroDescriptionEn : data.heroDescription)
+    : t('description')
+
+  const benefitsTitle = data
+    ? (locale === 'en' && data.benefitsTitleEn ? data.benefitsTitleEn : data.benefitsTitle)
+    : t('whyTitle')
+  const benefitsDescription = data
+    ? (locale === 'en' && data.benefitsDescriptionEn ? data.benefitsDescriptionEn : data.benefitsDescription)
+    : t('whyDescription')
+
+  const giftCardsUrl = settings?.giftCardsUrl || FRESHA_URLS.giftCards
 
   return (
     <>
@@ -43,11 +71,11 @@ export function GiftCardsPage() {
               animate="visible"
               className="text-white"
             >
-              <h1 className="heading-1 mb-6">{t('title')}</h1>
-              <p className="text-xl text-white/80 mb-4">{t('subtitle')}</p>
-              <p className="text-lg text-white/70 mb-8">{t('description')}</p>
+              <h1 className="heading-1 mb-6">{heroTitle}</h1>
+              <p className="text-xl text-white/80 mb-4">{heroSubtitle}</p>
+              <p className="text-lg text-white/70 mb-8">{heroDescription}</p>
               <Button
-                href={FRESHA_URLS.giftCards}
+                href={giftCardsUrl}
                 variant="secondary"
                 size="lg"
                 icon={<Gift className="w-5 h-5" />}
@@ -61,12 +89,23 @@ export function GiftCardsPage() {
               initial="hidden"
               animate="visible"
             >
-              <PlaceholderImage
-                category="service"
-                label="Gift Card"
-                aspectRatio="landscape"
-                className="rounded-lg shadow-2xl"
-              />
+              {data?.heroImage ? (
+                <div className="relative aspect-video overflow-hidden rounded-lg shadow-2xl">
+                  <Image
+                    src={urlFor(data.heroImage).width(600).height(400).url()}
+                    alt={heroTitle}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <PlaceholderImage
+                  category="service"
+                  label="Gift Card"
+                  aspectRatio="landscape"
+                  className="rounded-lg shadow-2xl"
+                />
+              )}
             </motion.div>
           </div>
         </div>
@@ -126,12 +165,23 @@ export function GiftCardsPage() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <PlaceholderImage
-                category="experience"
-                label="Gift Experience"
-                aspectRatio="landscape"
-                className="rounded-lg shadow-xl"
-              />
+              {data?.benefitsImage ? (
+                <div className="relative aspect-video overflow-hidden rounded-lg shadow-xl">
+                  <Image
+                    src={urlFor(data.benefitsImage).width(600).height(400).url()}
+                    alt={benefitsTitle || 'Benefits'}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <PlaceholderImage
+                  category="experience"
+                  label="Gift Experience"
+                  aspectRatio="landscape"
+                  className="rounded-lg shadow-xl"
+                />
+              )}
             </motion.div>
 
             <motion.div
@@ -141,10 +191,10 @@ export function GiftCardsPage() {
               viewport={{ once: true }}
             >
               <h2 className="heading-2 text-anthracite-500 mb-6">
-                {t('whyTitle')}
+                {benefitsTitle}
               </h2>
               <p className="text-neutral-600 text-lg mb-8">
-                {t('whyDescription')}
+                {benefitsDescription}
               </p>
               <ul className="space-y-4">
                 {benefitKeys.map((benefitKey) => (
@@ -174,7 +224,7 @@ export function GiftCardsPage() {
               {t('ctaDescription')}
             </p>
             <Button
-              href={FRESHA_URLS.giftCards}
+              href={giftCardsUrl}
               variant="primary"
               size="lg"
               icon={<Gift className="w-5 h-5" />}

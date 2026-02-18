@@ -1,6 +1,5 @@
 export { ServicesPage } from './ServicesPage'
 export { TeamPage } from './TeamPage'
-export { ExperiencePage } from './ExperiencePage'
 export { GalleryPage } from './GalleryPage'
 export { ContactPage } from './ContactPage'
 export { AboutPage } from './AboutPage'

@@ -14,6 +14,8 @@ import {
   siteSettingsQuery,
   whatToExpectQuery,
   experienceShowcaseQuery,
+  aboutPageQuery,
+  giftCardsPageQuery,
 } from './queries'
 import type {
   SanityLocation,
@@ -27,6 +29,8 @@ import type {
   SanitySiteSettings,
   SanityWhatToExpect,
   SanityExperienceShowcase,
+  SanityAboutPage,
+  SanityGiftCardsPage,
 } from './types'
 
 // Check if Sanity is properly configured
@@ -127,6 +131,16 @@ export async function getWhatToExpect(): Promise<SanityWhatToExpect | null> {
 // Experience Showcase
 export async function getExperienceShowcase(): Promise<SanityExperienceShowcase | null> {
   return safeFetch<SanityExperienceShowcase>(experienceShowcaseQuery)
+}
+
+// About Page
+export async function getAboutPage(): Promise<SanityAboutPage | null> {
+  return safeFetch<SanityAboutPage>(aboutPageQuery)
+}
+
+// Gift Cards Page
+export async function getGiftCardsPage(): Promise<SanityGiftCardsPage | null> {
+  return safeFetch<SanityGiftCardsPage>(giftCardsPageQuery)
 }
 
 // Site Settings

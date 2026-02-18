@@ -226,6 +226,48 @@ export const experienceShowcaseQuery = groq`
   }
 `
 
+// About Page
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0] {
+    storyTitle,
+    storyTitleEn,
+    storyContent,
+    storyContentEn,
+    storyContent2,
+    storyContent2En,
+    storyContent3,
+    storyContent3En,
+    storyImage,
+    philosophyTitle,
+    philosophyTitleEn,
+    philosophyContent,
+    philosophyContentEn,
+    philosophyContent2,
+    philosophyContent2En,
+    philosophyContent3,
+    philosophyContent3En,
+    philosophyImage
+  }
+`
+
+// Gift Cards Page
+export const giftCardsPageQuery = groq`
+  *[_type == "giftCardsPage"][0] {
+    heroTitle,
+    heroTitleEn,
+    heroSubtitle,
+    heroSubtitleEn,
+    heroDescription,
+    heroDescriptionEn,
+    heroImage,
+    benefitsTitle,
+    benefitsTitleEn,
+    benefitsDescription,
+    benefitsDescriptionEn,
+    benefitsImage
+  }
+`
+
 // Site Settings
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
