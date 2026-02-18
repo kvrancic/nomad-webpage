@@ -47,6 +47,24 @@ export default defineConfig({
                   .documentId('experienceShowcase')
               ),
             S.divider(),
+            // Page singletons
+            S.listItem()
+              .title('About Page')
+              .id('aboutPage')
+              .child(
+                S.document()
+                  .schemaType('aboutPage')
+                  .documentId('aboutPage')
+              ),
+            S.listItem()
+              .title('Gift Cards Page')
+              .id('giftCardsPage')
+              .child(
+                S.document()
+                  .schemaType('giftCardsPage')
+                  .documentId('giftCardsPage')
+              ),
+            S.divider(),
             // Content types
             S.listItem()
               .title('Locations')
