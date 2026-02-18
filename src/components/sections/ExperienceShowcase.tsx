@@ -4,10 +4,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Wine, Beer, Coffee, Music } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
-import { Link } from '@/i18n/routing'
 import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations'
 
 const features = [
@@ -102,13 +100,6 @@ export function ExperienceShowcase() {
               })}
             </motion.div>
 
-            <motion.div variants={fadeInLeft}>
-              <Link href="/experience">
-                <Button variant="outline" className="border-mint-500 text-mint-400 hover:bg-mint-500 hover:text-white">
-                  {t('cta')}
-                </Button>
-              </Link>
-            </motion.div>
           </motion.div>
 
           {/* Right - Image Gallery */}

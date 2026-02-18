@@ -7,11 +7,10 @@ import { SITE_CONFIG, LOCATIONS } from '@/lib/constants'
 
 const navLinks = [
   { key: 'services', href: '/services' as const },
-  { key: 'team', href: '/team' as const },
-  { key: 'experience', href: '/experience' as const },
+  { key: 'locations', href: '/locations' as const },
   { key: 'gallery', href: '/gallery' as const },
   { key: 'about', href: '/about' as const },
-  { key: 'locations', href: '/locations' as const },
+  { key: 'team', href: '/team' as const },
   { key: 'blog', href: '/blog' as const },
   { key: 'faq', href: '/faq' as const },
   { key: 'giftCards', href: '/gift-cards' as const },

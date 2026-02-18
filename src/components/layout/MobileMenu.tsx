@@ -11,11 +11,10 @@ import { FRESHA_URLS } from '@/lib/constants'
 
 const navItems = [
   { key: 'services', href: '/services' },
-  { key: 'team', href: '/team' },
-  { key: 'experience', href: '/experience' },
+  { key: 'locations', href: '/locations' },
   { key: 'gallery', href: '/gallery' },
   { key: 'about', href: '/about' },
-  { key: 'locations', href: '/locations' },
+  { key: 'team', href: '/team' },
   { key: 'blog', href: '/blog' },
   { key: 'faq', href: '/faq' },
   { key: 'giftCards', href: '/gift-cards' },
