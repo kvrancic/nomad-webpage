@@ -3,15 +3,19 @@
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { Calendar } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
+import { Button } from '@/components/ui/Button'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
+import { FRESHA_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInLeft, fadeInRight } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
-import type { SanityWhatToExpect } from '../../../sanity/lib'
+import type { SanityWhatToExpect, SanitySiteSettings } from '../../../sanity/lib'
 
 interface WhatToExpectProps {
   data?: SanityWhatToExpect | null
   locale?: string
+  settings?: SanitySiteSettings | null
 }
 
 const defaultImageLabels = ['Ambiance', 'Precision', 'Style', 'Relaxation']
@@ -20,7 +24,7 @@ const defaultImageCategories: Array<'experience' | 'service' | 'gallery' | 'expe
 ]
 const defaultAspectRatios: Array<'portrait' | 'square'> = ['portrait', 'square', 'square', 'portrait']
 
-export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
+export function WhatToExpect({ data, locale = 'hr', settings }: WhatToExpectProps) {
   const t = useTranslations('whatToExpect')
 
   const badge = data
@@ -149,10 +153,19 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
             )}
 
             {description && (
-              <p className="text-neutral-300 text-lg max-w-lg leading-relaxed">
+              <p className="text-neutral-300 text-lg max-w-lg leading-relaxed mb-8">
                 {description}
               </p>
             )}
+
+            <Button
+              href={settings?.freshaUrl || FRESHA_URLS.default}
+              variant="primary"
+              size="lg"
+              icon={<Calendar className="w-5 h-5" />}
+            >
+              {t('cta')}
+            </Button>
           </motion.div>
         </motion.div>
       </div>

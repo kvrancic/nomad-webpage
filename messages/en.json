@@ -28,7 +28,8 @@
     "badge": "Welcome",
     "title": "What to Expect",
     "subtitle": "More than just a haircut",
-    "description": "A space where quality, style, and relaxation come together. Book your appointment and experience it yourself."
+    "description": "A space where quality, style, and relaxation come together. Book your appointment and experience it yourself.",
+    "cta": "Book Appointment"
   },
   "experience": {
     "badge": "Unique Experience",

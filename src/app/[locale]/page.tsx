@@ -100,7 +100,7 @@ export default async function HomePage({
         <Hero videoUrl={heroVideoUrl} settings={settings} />
 
         {/* 2. What to Expect - Intro images and text */}
-        <WhatToExpect data={whatToExpect} locale={locale} />
+        <WhatToExpect data={whatToExpect} locale={locale} settings={settings} />
 
         {/* 3. All Services with pricing - Flat grid, no tabs */}
         <ServicesPreview services={services} locale={locale} settings={settings} />
