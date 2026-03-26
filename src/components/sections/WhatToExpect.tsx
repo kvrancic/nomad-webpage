@@ -39,7 +39,7 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
   const hasImages = data?.images && data.images.length > 0
 
   return (
-    <section className="py-10 md:py-14 bg-neutral-50">
+    <section className="py-14 md:py-20 bg-anthracite-500">
       <div className="container-custom">
         <motion.div
           variants={staggerContainer}
@@ -126,8 +126,8 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
             </div>
 
             {/* Decorative element */}
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-mint-500/20 rounded-full blur-2xl" />
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-anthracite-500/10 rounded-full blur-2xl" />
+            <div className="absolute -top-4 -left-4 w-24 h-24 bg-mint-500/15 rounded-full blur-2xl" />
+            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-mint-500/10 rounded-full blur-2xl" />
           </motion.div>
 
           {/* Right - Content */}
@@ -138,18 +138,18 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
               </Badge>
             )}
 
-            <h2 className="heading-2 text-anthracite-500 mb-4">
+            <h2 className="heading-2 text-white mb-4">
               {title}
             </h2>
 
             {subtitle && (
-              <p className="text-mint-600 text-xl font-medium mb-4">
+              <p className="text-mint-400 text-xl font-medium mb-4">
                 {subtitle}
               </p>
             )}
 
             {description && (
-              <p className="text-neutral-600 text-lg max-w-lg">
+              <p className="text-neutral-300 text-lg max-w-lg leading-relaxed">
                 {description}
               </p>
             )}
