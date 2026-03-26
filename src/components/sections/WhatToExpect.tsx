@@ -39,23 +39,23 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
   const hasImages = data?.images && data.images.length > 0
 
   return (
-    <section className="py-14 md:py-20 bg-anthracite-500">
+    <section className="py-10 md:py-14 bg-anthracite-500">
       <div className="container-custom">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         >
           {/* Left - Images Grid */}
           <motion.div variants={fadeInLeft} className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-3">
                 {hasImages && data.images![0] ? (
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg shadow-lg">
                     <Image
-                      src={urlFor(data.images![0]).width(400).height(533).url()}
+                      src={urlFor(data.images![0]).width(400).height(500).url()}
                       alt={data.images![0].label || 'Image 1'}
                       fill
                       className="object-cover"
@@ -87,7 +87,7 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
                   />
                 )}
               </div>
-              <div className="space-y-4 pt-8">
+              <div className="space-y-3 pt-6">
                 {hasImages && data.images![2] ? (
                   <div className="relative aspect-square overflow-hidden rounded-lg shadow-lg">
                     <Image
@@ -106,9 +106,9 @@ export function WhatToExpect({ data, locale = 'hr' }: WhatToExpectProps) {
                   />
                 )}
                 {hasImages && data.images![3] ? (
-                  <div className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg shadow-lg">
                     <Image
-                      src={urlFor(data.images![3]).width(400).height(533).url()}
+                      src={urlFor(data.images![3]).width(400).height(500).url()}
                       alt={data.images![3].label || 'Image 4'}
                       fill
                       className="object-cover"
