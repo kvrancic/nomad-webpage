@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Gift, CreditCard, Send, Check } from 'lucide-react'
+import { Gift, CreditCard, Send } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
@@ -13,17 +13,16 @@ import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/anima
 import { urlFor } from '../../../sanity/lib'
 import type { SanityGiftCardsPage, SanitySiteSettings } from '../../../sanity/lib'
 
-const stepKeys = [
+const iconMap = {
+  creditCard: CreditCard,
+  send: Send,
+  gift: Gift,
+} as const
+
+const fallbackStepKeys = [
   { key: 'amount', icon: CreditCard, step: 1 },
   { key: 'personalize', icon: Send, step: 2 },
   { key: 'gift', icon: Gift, step: 3 },
-] as const
-
-const benefitKeys = [
-  'neverExpires',
-  'allLocations',
-  'transferable',
-  'allServices',
 ] as const
 
 interface GiftCardsPageProps {
@@ -45,14 +44,16 @@ export function GiftCardsPage({ data, locale = 'hr', settings }: GiftCardsPagePr
     ? (locale === 'en' && data.heroDescriptionEn ? data.heroDescriptionEn : data.heroDescription)
     : t('description')
 
-  const benefitsTitle = data
-    ? (locale === 'en' && data.benefitsTitleEn ? data.benefitsTitleEn : data.benefitsTitle)
-    : t('whyTitle')
-  const benefitsDescription = data
-    ? (locale === 'en' && data.benefitsDescriptionEn ? data.benefitsDescriptionEn : data.benefitsDescription)
-    : t('whyDescription')
+  const howItWorksTitle = data?.howItWorksTitle
+    ? (locale === 'en' && data.howItWorksTitleEn ? data.howItWorksTitleEn : data.howItWorksTitle)
+    : t('howItWorks')
+  const howItWorksSubtitle = data?.howItWorksSubtitle
+    ? (locale === 'en' && data.howItWorksSubtitleEn ? data.howItWorksSubtitleEn : data.howItWorksSubtitle)
+    : t('howItWorksSubtitle')
 
   const giftCardsUrl = settings?.giftCardsUrl || FRESHA_URLS.giftCards
+
+  const hasCmsSteps = data?.steps && data.steps.length > 0
 
   return (
     <>
@@ -115,8 +116,8 @@ export function GiftCardsPage({ data, locale = 'hr', settings }: GiftCardsPagePr
       <section className="py-16 md:py-20">
         <div className="container-custom">
           <SectionHeader
-            title={t('howItWorks')}
-            subtitle={t('howItWorksSubtitle')}
+            title={howItWorksTitle || t('howItWorks')}
+            subtitle={howItWorksSubtitle || t('howItWorksSubtitle')}
           />
 
           <motion.div
@@ -126,88 +127,60 @@ export function GiftCardsPage({ data, locale = 'hr', settings }: GiftCardsPagePr
             viewport={{ once: true }}
             className="grid md:grid-cols-3 gap-8"
           >
-            {stepKeys.map((stepItem) => {
-              const Icon = stepItem.icon
-              return (
-                <motion.div key={stepItem.step} variants={fadeInUp}>
-                  <Card variant="outlined" className="text-center h-full relative">
-                    {/* Step number */}
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-mint-500 text-white rounded-full flex items-center justify-center font-bold">
-                      {stepItem.step}
-                    </div>
+            {hasCmsSteps
+              ? data!.steps!.map((step, index) => {
+                  const Icon = step.icon ? iconMap[step.icon] : Gift
+                  const stepTitle = locale === 'en' && step.titleEn ? step.titleEn : step.title
+                  const stepDesc = locale === 'en' && step.descriptionEn ? step.descriptionEn : step.description
+                  return (
+                    <motion.div key={step._key} variants={fadeInUp} className="pt-4">
+                      <Card variant="outlined" className="text-center h-full relative overflow-visible">
+                        {/* Step number */}
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-mint-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                          {index + 1}
+                        </div>
 
-                    <CardContent className="pt-12 pb-8 px-6">
-                      <div className="w-16 h-16 mx-auto mb-6 bg-mint-50 rounded-full flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-mint-500" />
-                      </div>
-                      <h3 className="font-display text-xl uppercase tracking-tight text-anthracite-500 mb-3">
-                        {t(`steps.${stepItem.key}.title`)}
-                      </h3>
-                      <p className="text-neutral-600 text-sm leading-relaxed">
-                        {t(`steps.${stepItem.key}.description`)}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              )
-            })}
+                        <CardContent className="pt-12 pb-8 px-6">
+                          <div className="w-16 h-16 mx-auto mb-6 bg-mint-50 rounded-full flex items-center justify-center">
+                            <Icon className="w-8 h-8 text-mint-500" />
+                          </div>
+                          <h3 className="font-display text-xl uppercase tracking-tight text-anthracite-500 mb-3">
+                            {stepTitle}
+                          </h3>
+                          <p className="text-neutral-600 text-sm leading-relaxed">
+                            {stepDesc}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )
+                })
+              : fallbackStepKeys.map((stepItem) => {
+                  const Icon = stepItem.icon
+                  return (
+                    <motion.div key={stepItem.step} variants={fadeInUp} className="pt-4">
+                      <Card variant="outlined" className="text-center h-full relative overflow-visible">
+                        {/* Step number */}
+                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-mint-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                          {stepItem.step}
+                        </div>
+
+                        <CardContent className="pt-12 pb-8 px-6">
+                          <div className="w-16 h-16 mx-auto mb-6 bg-mint-50 rounded-full flex items-center justify-center">
+                            <Icon className="w-8 h-8 text-mint-500" />
+                          </div>
+                          <h3 className="font-display text-xl uppercase tracking-tight text-anthracite-500 mb-3">
+                            {t(`steps.${stepItem.key}.title`)}
+                          </h3>
+                          <p className="text-neutral-600 text-sm leading-relaxed">
+                            {t(`steps.${stepItem.key}.description`)}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )
+                })}
           </motion.div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="py-16 md:py-20 bg-neutral-50">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div
-              variants={fadeInLeft}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {data?.benefitsImage ? (
-                <div className="relative aspect-video overflow-hidden rounded-lg shadow-xl">
-                  <Image
-                    src={urlFor(data.benefitsImage).width(600).height(400).url()}
-                    alt={benefitsTitle || 'Benefits'}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <PlaceholderImage
-                  category="experience"
-                  label="Gift Experience"
-                  aspectRatio="landscape"
-                  className="rounded-lg shadow-xl"
-                />
-              )}
-            </motion.div>
-
-            <motion.div
-              variants={fadeInRight}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h2 className="heading-2 text-anthracite-500 mb-6">
-                {benefitsTitle}
-              </h2>
-              <p className="text-neutral-600 text-lg mb-8">
-                {benefitsDescription}
-              </p>
-              <ul className="space-y-4">
-                {benefitKeys.map((benefitKey) => (
-                  <li key={benefitKey} className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-mint-500 rounded-full flex items-center justify-center">
-                      <Check className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="text-anthracite-500 font-medium">{t(`benefits.${benefitKey}`)}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
         </div>
       </section>
 

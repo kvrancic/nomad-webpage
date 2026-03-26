@@ -137,13 +137,7 @@
     "viewAll": "View Gallery",
     "before": "Before",
     "after": "After",
-    "shareTransformation": "Share your transformation with us!",
-    "filters": {
-      "all": "All",
-      "fades": "Fades",
-      "classic": "Classic",
-      "beard": "Beard"
-    }
+    "shareTransformation": "Share your transformation with us!"
   },
   "team": {
     "title": "Meet Our Team",
@@ -155,7 +149,7 @@
   },
   "locations": {
     "title": "Our Locations",
-    "subtitle": "4 locations in Zagreb for your convenience",
+    "subtitle": "Find your nearest location",
     "hours": {
       "title": "Opening Hours",
       "weekdays": "Mon - Fri",
@@ -291,14 +285,6 @@
         "title": "Gift",
         "description": "Receive the card instantly via email or pick it up at any of our locations."
       }
-    },
-    "whyTitle": "Why Nomad Gift Card?",
-    "whyDescription": "Gift more than a haircut - gift an experience. A Nomad gift card includes premium grooming with whiskey or craft beer, in a relaxing atmosphere.",
-    "benefits": {
-      "neverExpires": "Never expires",
-      "allLocations": "Valid at all locations",
-      "transferable": "Transferable to another person",
-      "allServices": "Includes all services"
     },
     "ctaTitle": "Ready to Buy?",
     "ctaDescription": "Email delivery is instant. Physical cards can be picked up at any location."

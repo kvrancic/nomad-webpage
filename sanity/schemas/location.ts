@@ -94,6 +94,12 @@ export const location = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'googleMapsUrl',
+      title: 'Google Maps URL',
+      type: 'url',
+      description: 'Direct link to this location on Google Maps. If empty, an auto-generated link will be used.',
+    }),
+    defineField({
       name: 'image',
       title: 'Location Image',
       type: 'image',

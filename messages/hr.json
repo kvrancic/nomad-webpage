@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Nomad Barbershop | Premium Muški Frizerski Salon Zagreb",
-    "description": "Profesionalno šišanje i brijanje uz whiskey i craft pivo. 4 lokacije u Zagrebu. Rezervirajte termin online."
+    "description": "Profesionalno šišanje i brijanje uz whiskey i craft pivo. Više lokacija u Zagrebu. Rezervirajte termin online."
   },
   "navigation": {
     "services": "Usluge",
@@ -137,13 +137,7 @@
     "viewAll": "Pogledaj galeriju",
     "before": "Prije",
     "after": "Poslije",
-    "shareTransformation": "Podijeli svoju transformaciju s nama!",
-    "filters": {
-      "all": "Sve",
-      "fades": "Fade",
-      "classic": "Klasika",
-      "beard": "Brada"
-    }
+    "shareTransformation": "Podijeli svoju transformaciju s nama!"
   },
   "team": {
     "title": "Upoznaj naš tim",
@@ -155,7 +149,7 @@
   },
   "locations": {
     "title": "Naše lokacije",
-    "subtitle": "4 lokacije u Zagrebu za tvoju udobnost",
+    "subtitle": "Pronađi svoju najbližu lokaciju",
     "hours": {
       "title": "Radno vrijeme",
       "weekdays": "Pon - Pet",
@@ -291,14 +285,6 @@
         "title": "Pokloni",
         "description": "Primi karticu odmah na email ili podigni u bilo kojoj našoj lokaciji."
       }
-    },
-    "whyTitle": "Zašto Nomad poklon kartica?",
-    "whyDescription": "Poklonite više od frizure - poklonite doživljaj. Nomad poklon kartica uključuje premium šišanje uz whiskey ili craft pivo, u ugodnom ambijentu.",
-    "benefits": {
-      "neverExpires": "Nikad ne istječe",
-      "allLocations": "Vrijedi u svim lokacijama",
-      "transferable": "Prenosivo na drugu osobu",
-      "allServices": "Uključuje sve usluge"
     },
     "ctaTitle": "Spreman za kupnju?",
     "ctaDescription": "Dostava na email je trenutna. Fizičku karticu možete podići u bilo kojoj lokaciji."

@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const giftCardsPage = defineType({
   name: 'giftCardsPage',
@@ -45,32 +45,79 @@ export const giftCardsPage = defineType({
       options: { hotspot: true },
     }),
     defineField({
-      name: 'benefitsTitle',
-      title: 'Benefits Section Title (Croatian)',
+      name: 'howItWorksTitle',
+      title: 'How It Works - Title (Croatian)',
       type: 'string',
     }),
     defineField({
-      name: 'benefitsTitleEn',
-      title: 'Benefits Section Title (English)',
+      name: 'howItWorksTitleEn',
+      title: 'How It Works - Title (English)',
       type: 'string',
     }),
     defineField({
-      name: 'benefitsDescription',
-      title: 'Benefits Section Description (Croatian)',
-      type: 'text',
-      rows: 3,
+      name: 'howItWorksSubtitle',
+      title: 'How It Works - Subtitle (Croatian)',
+      type: 'string',
     }),
     defineField({
-      name: 'benefitsDescriptionEn',
-      title: 'Benefits Section Description (English)',
-      type: 'text',
-      rows: 3,
+      name: 'howItWorksSubtitleEn',
+      title: 'How It Works - Subtitle (English)',
+      type: 'string',
     }),
     defineField({
-      name: 'benefitsImage',
-      title: 'Benefits Section Image',
-      type: 'image',
-      options: { hotspot: true },
+      name: 'steps',
+      title: 'How It Works - Steps',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'icon',
+              title: 'Icon',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Credit Card', value: 'creditCard' },
+                  { title: 'Send', value: 'send' },
+                  { title: 'Gift', value: 'gift' },
+                ],
+              },
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title (Croatian)',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'titleEn',
+              title: 'Title (English)',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description (Croatian)',
+              type: 'text',
+              rows: 2,
+            }),
+            defineField({
+              name: 'descriptionEn',
+              title: 'Description (English)',
+              type: 'text',
+              rows: 2,
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'icon',
+            },
+          },
+        }),
+      ],
+      description: 'Steps displayed in the "How It Works" section (typically 3 steps)',
+      validation: (Rule) => Rule.max(5),
     }),
   ],
   preview: {

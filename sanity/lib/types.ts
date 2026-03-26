@@ -42,6 +42,7 @@ export interface SanityLocation {
     lng: number
   }
   freshaUrl?: string
+  googleMapsUrl?: string
   image?: SanityImage
 }
 
@@ -191,6 +192,15 @@ export interface SanityAboutPage {
   philosophyImage?: SanityImage
 }
 
+export interface SanityGiftCardStep {
+  _key: string
+  icon?: 'creditCard' | 'send' | 'gift'
+  title: string
+  titleEn?: string
+  description?: string
+  descriptionEn?: string
+}
+
 export interface SanityGiftCardsPage {
   heroTitle: string
   heroTitleEn?: string
@@ -199,11 +209,11 @@ export interface SanityGiftCardsPage {
   heroDescription?: string
   heroDescriptionEn?: string
   heroImage?: SanityImage
-  benefitsTitle?: string
-  benefitsTitleEn?: string
-  benefitsDescription?: string
-  benefitsDescriptionEn?: string
-  benefitsImage?: SanityImage
+  howItWorksTitle?: string
+  howItWorksTitleEn?: string
+  howItWorksSubtitle?: string
+  howItWorksSubtitleEn?: string
+  steps?: SanityGiftCardStep[]
 }
 
 export interface SanityWhatToExpect {

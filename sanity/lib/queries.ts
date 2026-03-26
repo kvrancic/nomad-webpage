@@ -13,6 +13,7 @@ export const locationsQuery = groq`
     parking,
     coordinates,
     freshaUrl,
+    googleMapsUrl,
     image
   }
 `
@@ -260,11 +261,11 @@ export const giftCardsPageQuery = groq`
     heroDescription,
     heroDescriptionEn,
     heroImage,
-    benefitsTitle,
-    benefitsTitleEn,
-    benefitsDescription,
-    benefitsDescriptionEn,
-    benefitsImage
+    howItWorksTitle,
+    howItWorksTitleEn,
+    howItWorksSubtitle,
+    howItWorksSubtitleEn,
+    steps
   }
 `
 

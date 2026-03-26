@@ -26,6 +26,18 @@ export function ContactPage({ locations, locale = 'hr', settings }: ContactPageP
   const hasSanityData = locations && locations.length > 0
   const displayLocations = hasSanityData ? locations : LOCATIONS
 
+  // Group locations by city, preserving order
+  type LocationItem = SanityLocation | typeof LOCATIONS[0]
+  const cityGroups: { city: string; locations: LocationItem[] }[] = []
+  for (const location of displayLocations) {
+    const existing = cityGroups.find((g) => g.city === location.city)
+    if (existing) {
+      existing.locations.push(location)
+    } else {
+      cityGroups.push({ city: location.city, locations: [location] })
+    }
+  }
+
   const getBookingUrl = (location: SanityLocation | typeof LOCATIONS[0]) => {
     if ('freshaUrl' in location && location.freshaUrl) {
       return location.freshaUrl
@@ -34,6 +46,13 @@ export function ContactPage({ locations, locale = 'hr', settings }: ContactPageP
       return FRESHA_URLS.locations[location.id as keyof typeof FRESHA_URLS.locations] || FRESHA_URLS.default
     }
     return settings?.freshaUrl || FRESHA_URLS.default
+  }
+
+  const getGoogleMapsUrl = (location: SanityLocation | typeof LOCATIONS[0]) => {
+    if ('googleMapsUrl' in location && location.googleMapsUrl) {
+      return location.googleMapsUrl
+    }
+    return `https://maps.google.com/?q=Nomad+Barbershop+${encodeURIComponent(location.name)},+${encodeURIComponent(location.city)}`
   }
 
   return (
@@ -46,112 +65,122 @@ export function ContactPage({ locations, locale = 'hr', settings }: ContactPageP
             subtitle={tLoc('subtitle')}
           />
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid md:grid-cols-2 gap-8"
-          >
-            {displayLocations.map((location) => {
-              const locationId = '_id' in location ? location._id : location.id
-              const locationName = location.name
-              const hasSanityImage = '_id' in location && location.image
+          {cityGroups.map((group) => (
+            <div key={group.city} className="mb-12 last:mb-0">
+              {/* City header */}
+              <div className="flex items-center gap-4 mb-8">
+                <h3 className="font-display text-3xl uppercase tracking-tight text-anthracite-500">
+                  {group.city}
+                </h3>
+                <div className="flex-1 h-px bg-neutral-300" />
+              </div>
 
-              return (
-                <motion.div key={locationId} variants={fadeInUp}>
-                  <Card hover variant="elevated" padding="none" className="overflow-hidden h-full">
-                    <div className="flex flex-col">
-                      {/* Image */}
-                      {hasSanityImage ? (
-                        <div className="relative aspect-video overflow-hidden">
-                          <Image
-                            src={urlFor(location.image!).width(600).height(338).url()}
-                            alt={locationName}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      ) : (
-                        <PlaceholderImage
-                          category="location"
-                          label={locationName}
-                          aspectRatio="video"
-                          className="w-full"
-                        />
-                      )}
+              {/* Locations grid for this city */}
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+                className="grid md:grid-cols-2 gap-8"
+              >
+                {group.locations.map((location) => {
+                  const locationId = '_id' in location ? location._id : location.id
+                  const locationName = location.name
+                  const hasSanityImage = '_id' in location && location.image
 
-                      {/* Info */}
-                      <CardContent className="p-6 flex flex-col flex-1">
-                        <h3 className="font-display text-2xl uppercase tracking-tight text-anthracite-500 mb-4">
-                          {locationName}
-                        </h3>
+                  return (
+                    <motion.div key={locationId} variants={fadeInUp}>
+                      <Card hover variant="elevated" padding="none" className="overflow-hidden h-full">
+                        <div className="flex flex-col">
+                          {/* Image */}
+                          {hasSanityImage ? (
+                            <div className="relative aspect-video overflow-hidden">
+                              <Image
+                                src={urlFor(location.image!).width(600).height(338).url()}
+                                alt={locationName}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <PlaceholderImage
+                              category="location"
+                              label={locationName}
+                              aspectRatio="video"
+                              className="w-full"
+                            />
+                          )}
 
-                        {/* Address */}
-                        <div className="flex items-start gap-3 text-neutral-600 mb-3">
-                          <MapPin className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
-                          <div>
-                            <p>{location.address}</p>
-                            <p>{location.city}</p>
-                          </div>
-                        </div>
+                          {/* Info */}
+                          <CardContent className="p-6 flex flex-col flex-1">
+                            <h4 className="font-display text-2xl uppercase tracking-tight text-anthracite-500 mb-4">
+                              {locationName}
+                            </h4>
 
-                        {/* Hours */}
-                        <div className="flex items-start gap-3 text-neutral-600 mb-3">
-                          <Clock className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
-                          <div>
-                            <p>{tLoc('hours.weekdays')}: {location.hours.weekdays}</p>
-                            <p>{tLoc('hours.saturday')}: {location.hours.saturday}</p>
-                            {location.hours.sunday === null && (
-                              <p className="text-neutral-400">
-                                {tLoc('hours.sunday')}: {tLoc('hours.closed')}
-                              </p>
+                            {/* Address */}
+                            <div className="flex items-start gap-3 text-neutral-600 mb-3">
+                              <MapPin className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
+                              <p>{location.address}</p>
+                            </div>
+
+                            {/* Hours */}
+                            <div className="flex items-start gap-3 text-neutral-600 mb-3">
+                              <Clock className="w-5 h-5 mt-0.5 text-mint-500 flex-shrink-0" />
+                              <div>
+                                <p>{tLoc('hours.weekdays')}: {location.hours.weekdays}</p>
+                                <p>{tLoc('hours.saturday')}: {location.hours.saturday}</p>
+                                {location.hours.sunday === null && (
+                                  <p className="text-neutral-400">
+                                    {tLoc('hours.sunday')}: {tLoc('hours.closed')}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Phone */}
+                            <a
+                              href={`tel:${location.phone}`}
+                              className="flex items-center gap-3 text-neutral-600 mb-3 hover:text-mint-500 transition-colors"
+                            >
+                              <Phone className="w-5 h-5 text-mint-500" />
+                              {location.phone}
+                            </a>
+
+                            {/* Parking */}
+                            {location.parking && (
+                              <div className="flex items-center gap-3 text-neutral-400 mb-4">
+                                <Car className="w-5 h-5" />
+                                {tLoc('parking')}
+                              </div>
                             )}
-                          </div>
+
+                            {/* Actions */}
+                            <div className="flex gap-2 mt-auto pt-4">
+                              <Button
+                                href={getBookingUrl(location)}
+                                variant="primary"
+                                size="sm"
+                                className="flex-1"
+                              >
+                                {tLoc('book')}
+                              </Button>
+                              <Button
+                                href={getGoogleMapsUrl(location)}
+                                variant="outline"
+                                size="sm"
+                                icon={<ExternalLink className="w-4 h-4" />}
+                              >
+                                {tLoc('directions')}
+                              </Button>
+                            </div>
+                          </CardContent>
                         </div>
-
-                        {/* Phone */}
-                        <a
-                          href={`tel:${location.phone}`}
-                          className="flex items-center gap-3 text-neutral-600 mb-3 hover:text-mint-500 transition-colors"
-                        >
-                          <Phone className="w-5 h-5 text-mint-500" />
-                          {location.phone}
-                        </a>
-
-                        {/* Parking */}
-                        {location.parking && (
-                          <div className="flex items-center gap-3 text-neutral-400 mb-4">
-                            <Car className="w-5 h-5" />
-                            {tLoc('parking')}
-                          </div>
-                        )}
-
-                        {/* Actions */}
-                        <div className="flex gap-2 mt-auto pt-4">
-                          <Button
-                            href={getBookingUrl(location)}
-                            variant="primary"
-                            size="sm"
-                            className="flex-1"
-                          >
-                            {tLoc('book')}
-                          </Button>
-                          <Button
-                            href={`https://maps.google.com/?q=Nomad+Barbershop+${encodeURIComponent(locationName)},+${encodeURIComponent(location.city)}`}
-                            variant="outline"
-                            size="sm"
-                            icon={<ExternalLink className="w-4 h-4" />}
-                          >
-                            {tLoc('directions')}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </div>
-                  </Card>
-                </motion.div>
-              )
-            })}
-          </motion.div>
+                      </Card>
+                    </motion.div>
+                  )
+                })}
+              </motion.div>
+            </div>
+          ))}
         </div>
       </section>
 

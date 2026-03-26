@@ -1,17 +1,13 @@
 'use client'
 
-import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { GalleryItem } from '@/components/ui/GalleryItem'
-import { cn } from '@/lib/utils'
 import { fadeInUp } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityGalleryItem, SanitySiteSettings } from '../../../sanity/lib'
 import { SITE_CONFIG } from '@/lib/constants'
-
-type FilterCategory = 'all' | 'fades' | 'classic' | 'beard'
 
 // Placeholder gallery items (fallback)
 const placeholderGalleryItems = [
@@ -29,8 +25,6 @@ const placeholderGalleryItems = [
   { id: '12', category: 'fades' as const, barber: 'Stjepan', service: 'Low Fade' },
 ]
 
-const filters: FilterCategory[] = ['all', 'fades', 'classic', 'beard']
-
 interface GalleryPageProps {
   gallery?: SanityGalleryItem[]
   locale?: string
@@ -39,17 +33,9 @@ interface GalleryPageProps {
 
 export function GalleryPage({ gallery, locale = 'hr', settings }: GalleryPageProps) {
   const t = useTranslations('gallery')
-  const [activeFilter, setActiveFilter] = useState<FilterCategory>('all')
 
   const hasSanityData = gallery && gallery.length > 0
-
-  const filteredItems = hasSanityData
-    ? activeFilter === 'all'
-      ? gallery
-      : gallery.filter((item) => item.category === activeFilter)
-    : activeFilter === 'all'
-      ? placeholderGalleryItems
-      : placeholderGalleryItems.filter((item) => item.category === activeFilter)
+  const displayItems = hasSanityData ? gallery : placeholderGalleryItems
 
   return (
     <section className="py-16 md:py-24">
@@ -59,31 +45,13 @@ export function GalleryPage({ gallery, locale = 'hr', settings }: GalleryPagePro
           subtitle={t('subtitle')}
         />
 
-        {/* Filter buttons */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={cn(
-                'px-4 py-2 rounded-full text-sm font-medium transition-all duration-300',
-                activeFilter === filter
-                  ? 'bg-mint-500 text-white'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-              )}
-            >
-              {t(`filters.${filter}`)}
-            </button>
-          ))}
-        </div>
-
         {/* Gallery grid */}
         <motion.div
           layout
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item, index) => {
+            {displayItems.map((item, index) => {
               const isSanity = '_id' in item
               const itemId = isSanity ? item._id : item.id
               const barberName = isSanity && item.barber ? item.barber.name : ('barber' in item ? item.barber : '')
@@ -103,9 +71,7 @@ export function GalleryPage({ gallery, locale = 'hr', settings }: GalleryPagePro
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  className={cn(
-                    index % 5 === 0 || index % 7 === 0 ? 'row-span-2' : ''
-                  )}
+                  className={index % 5 === 0 || index % 7 === 0 ? 'row-span-2' : ''}
                 >
                   <GalleryItem
                     beforeLabel={t('before')}
