@@ -119,7 +119,7 @@ export function ServicesPage({ services, locale = 'hr', settings }: ServicesPage
           className="mt-16 text-center"
         >
           <p className="text-neutral-600 mb-4">
-            Ne možeš odlučiti? Kontaktiraj nas za preporuku.
+            {t('cantDecide')}
           </p>
           <Button href={bookingUrl} variant="primary" size="lg">
             {t('bookService')}
