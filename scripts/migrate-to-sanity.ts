@@ -18,7 +18,7 @@
  */
 
 import { createClient } from '@sanity/client'
-import { LOCATIONS, BARBERS, SERVICES, FAQ_ITEMS, SITE_CONFIG, FRESHA_URLS } from '../src/lib/constants'
+import { LOCATIONS, BARBERS, SERVICES, FAQ_ITEMS, SITE_CONFIG, LIME_BOOKING_URLS } from '../src/lib/constants'
 
 // Initialize Sanity client with write access
 const client = createClient({
@@ -52,7 +52,7 @@ async function migrateLocations() {
         lat: location.coordinates.lat,
         lng: location.coordinates.lng,
       },
-      freshaUrl: FRESHA_URLS.locations[location.id as keyof typeof FRESHA_URLS.locations],
+      freshaUrl: LIME_BOOKING_URLS.locations[location.id as keyof typeof LIME_BOOKING_URLS.locations],
       order: i,
     }
 
@@ -187,8 +187,8 @@ async function migrateSiteSettings() {
     email: SITE_CONFIG.email,
     instagram: SITE_CONFIG.instagram,
     facebook: SITE_CONFIG.facebook,
-    freshaUrl: FRESHA_URLS.default,
-    giftCardsUrl: FRESHA_URLS.giftCards,
+    freshaUrl: LIME_BOOKING_URLS.default,
+    giftCardsUrl: LIME_BOOKING_URLS.giftCards,
   }
 
   await client.createOrReplace(doc)

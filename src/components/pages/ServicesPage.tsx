@@ -6,7 +6,7 @@ import { Clock, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
-import { SERVICES, FRESHA_URLS } from '@/lib/constants'
+import { SERVICES, LIME_BOOKING_URLS } from '@/lib/constants'
 import { formatPrice, formatDuration } from '@/lib/utils'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import type { SanityService, SanitySiteSettings } from '../../../sanity/lib'
@@ -36,7 +36,7 @@ export function ServicesPage({ services, locale = 'hr', settings }: ServicesPage
 
   const hasSanityData = services && services.length > 0
   const displayServices = hasSanityData ? services : allConstantServices
-  const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
+  const bookingUrl = LIME_BOOKING_URLS.default
 
   return (
     <section className="py-16 md:py-24">

@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { slideInRight, staggerContainer, fadeInRight } from '@/lib/animations'
-import { FRESHA_URLS } from '@/lib/constants'
+import { LIME_BOOKING_URLS } from '@/lib/constants'
 
 const navItems = [
   { key: 'services', href: '/services' },
@@ -25,7 +25,7 @@ interface MobileMenuProps {
   bookingUrl?: string
 }
 
-export function MobileMenu({ onClose, bookingUrl = FRESHA_URLS.default }: MobileMenuProps) {
+export function MobileMenu({ onClose, bookingUrl = LIME_BOOKING_URLS.default }: MobileMenuProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
 

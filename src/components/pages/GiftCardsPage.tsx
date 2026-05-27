@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
-import { FRESHA_URLS } from '@/lib/constants'
+import { LIME_BOOKING_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityGiftCardsPage, SanitySiteSettings } from '../../../sanity/lib'
@@ -51,7 +51,7 @@ export function GiftCardsPage({ data, locale = 'hr', settings }: GiftCardsPagePr
     ? (locale === 'en' && data.howItWorksSubtitleEn ? data.howItWorksSubtitleEn : data.howItWorksSubtitle)
     : t('howItWorksSubtitle')
 
-  const giftCardsUrl = settings?.giftCardsUrl || FRESHA_URLS.giftCards
+  const giftCardsUrl = LIME_BOOKING_URLS.giftCards
 
   const hasCmsSteps = data?.steps && data.steps.length > 0
 

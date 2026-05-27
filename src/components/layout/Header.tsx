@@ -10,13 +10,13 @@ import { Button } from '@/components/ui/Button'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { Navigation } from './Navigation'
 import { MobileMenu } from './MobileMenu'
-import { FRESHA_URLS, SITE_CONFIG } from '@/lib/constants'
+import { LIME_BOOKING_URLS, SITE_CONFIG } from '@/lib/constants'
 
 interface HeaderProps {
   bookingUrl?: string
 }
 
-export function Header({ bookingUrl = FRESHA_URLS.default }: HeaderProps) {
+export function Header({ bookingUrl = LIME_BOOKING_URLS.default }: HeaderProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
   const isHomepage = pathname === '/'

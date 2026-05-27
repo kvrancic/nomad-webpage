@@ -7,7 +7,7 @@ import { Calendar } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
-import { FRESHA_URLS } from '@/lib/constants'
+import { LIME_BOOKING_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInLeft, fadeInRight } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityWhatToExpect, SanitySiteSettings } from '../../../sanity/lib'
@@ -159,7 +159,7 @@ export function WhatToExpect({ data, locale = 'hr', settings }: WhatToExpectProp
             )}
 
             <Button
-              href={settings?.freshaUrl || FRESHA_URLS.default}
+              href={LIME_BOOKING_URLS.default}
               variant="primary"
               size="lg"
               icon={<Calendar className="w-5 h-5" />}

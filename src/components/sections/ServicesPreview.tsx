@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/Badge'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Link } from '@/i18n/routing'
-import { SERVICES, FRESHA_URLS } from '@/lib/constants'
+import { SERVICES, LIME_BOOKING_URLS } from '@/lib/constants'
 import { formatPrice, formatDuration } from '@/lib/utils'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import type { SanityService, SanitySiteSettings } from '../../../sanity/lib'
@@ -39,7 +39,7 @@ export function ServicesPreview({ services, locale = 'hr', settings }: ServicesP
   // Use Sanity data if available, otherwise fall back to constants
   const hasSanityData = services && services.length > 0
   const displayServices = hasSanityData ? services : allConstantServices
-  const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
+  const bookingUrl = LIME_BOOKING_URLS.default
 
   return (
     <section className="py-10 md:py-14 bg-white">

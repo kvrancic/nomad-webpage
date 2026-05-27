@@ -7,7 +7,7 @@ import { Instagram, Facebook } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { HeroPlaceholder } from '@/components/shared/PlaceholderImage'
 import { Link } from '@/i18n/routing'
-import { FRESHA_URLS, SITE_CONFIG } from '@/lib/constants'
+import { LIME_BOOKING_URLS, SITE_CONFIG } from '@/lib/constants'
 import {
   staggerContainer,
   fadeInUp,
@@ -90,7 +90,7 @@ export function Hero({ videoUrl, settings }: HeroProps) {
             variants={fadeInUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button href={settings?.freshaUrl || FRESHA_URLS.default} variant="primary" size="lg">
+            <Button href={LIME_BOOKING_URLS.default} variant="primary" size="lg">
               {t('cta')}
             </Button>
             <Button
@@ -109,7 +109,7 @@ export function Hero({ videoUrl, settings }: HeroProps) {
               <Link href="/locations">{t('ctaLocations')}</Link>
             </Button>
             <Button
-              href={settings?.giftCardsUrl || FRESHA_URLS.giftCards}
+              href={LIME_BOOKING_URLS.giftCards}
               variant="outline"
               size="lg"
               className="border-mint-500 text-mint-400 hover:bg-mint-500 hover:text-white"

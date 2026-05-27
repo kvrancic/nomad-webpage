@@ -7,21 +7,31 @@ export const SITE_CONFIG = {
   facebook: 'https://facebook.com/nomadbarbershop',
 }
 
-// Booking now goes through Lime (Fresha is deprecated). These are fallbacks only —
-// Sanity CMS values (siteSettings.freshaUrl, location.freshaUrl) override them when set.
-const LIME_BOOKING_URL = 'https://form.lime-booking.com/hr/nomad-barbershop-/location'
-
-export const FRESHA_URLS = {
-  default: LIME_BOOKING_URL,
-  // No dedicated Lime gift-card URL provided yet — falls back to the booking form.
-  // Set siteSettings.giftCardsUrl in the CMS once a Lime gift-card link exists.
-  giftCards: LIME_BOOKING_URL,
+// Booking URLs are hardcoded here — they are the source of truth, not Sanity.
+export const LIME_BOOKING_URLS = {
+  default: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
+  giftCards: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
   locations: {
-    radnicka: LIME_BOOKING_URL,
-    spansko: LIME_BOOKING_URL,
-    laniste: LIME_BOOKING_URL,
-    kutnjacki: LIME_BOOKING_URL,
-  },
+    radnicka: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9806',
+    spansko: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9807',
+    laniste: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9808',
+    vrbani: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9809',
+  } as Record<string, string>,
+  barbers: {
+    veronika: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9806&u=13897',
+    ivan: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9806&u=13899',
+    sara: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9806&u=13900',
+    anita: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9806&u=16043',
+    luka: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9807&u=13894',
+    ivana: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9807&u=13895',
+    stjepan: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9807&u=13896',
+    nacho: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9807&u=16042',
+    antonio: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9808&u=13890',
+    antonija: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9808&u=13891',
+    brigita: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9808&u=13892',
+    antea: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9808&u=13886',
+    tena: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9809&u=13889',
+  } as Record<string, string>,
 }
 
 export const LOCATIONS = [

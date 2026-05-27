@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Gift, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Link } from '@/i18n/routing'
-import { FRESHA_URLS } from '@/lib/constants'
+import { LIME_BOOKING_URLS } from '@/lib/constants'
 import { fadeInUp, staggerContainer } from '@/lib/animations'
 import type { SanitySiteSettings } from '../../../sanity/lib'
 
@@ -17,7 +17,7 @@ export function CTASection({ settings }: CTASectionProps) {
   const tHero = useTranslations('hero')
   const tGift = useTranslations('giftCards')
 
-  const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
+  const bookingUrl = LIME_BOOKING_URLS.default
 
   return (
     <section className="py-10 md:py-14 bg-gradient-to-br from-mint-500 to-mint-600 relative overflow-hidden">

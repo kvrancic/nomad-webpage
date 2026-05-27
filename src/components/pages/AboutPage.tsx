@@ -9,7 +9,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { Link } from '@/i18n/routing'
-import { FRESHA_URLS } from '@/lib/constants'
+import { LIME_BOOKING_URLS } from '@/lib/constants'
 import { staggerContainer, fadeInUp, fadeInLeft, fadeInRight } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityAboutPage, SanitySiteSettings } from '../../../sanity/lib'
@@ -56,7 +56,7 @@ export function AboutPage({ data, locale = 'hr', settings }: AboutPageProps) {
     ? (locale === 'en' && data.philosophyContent3En ? data.philosophyContent3En : data.philosophyContent3)
     : t('philosophy.content3')
 
-  const bookingUrl = settings?.freshaUrl || FRESHA_URLS.default
+  const bookingUrl = LIME_BOOKING_URLS.default
 
   return (
     <>
