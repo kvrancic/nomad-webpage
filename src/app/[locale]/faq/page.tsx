@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
-import { Header } from '@/components/layout/Header'
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { FAQPage } from '@/components/pages/FAQPage'
 import { getFaqs } from '../../../../sanity/lib'
@@ -30,7 +30,7 @@ export default async function FAQ({
 
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main className="pt-14">
         <FAQPage faqs={faqs} locale={locale} />
       </main>

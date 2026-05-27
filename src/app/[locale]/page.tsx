@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
-import { Header } from '@/components/layout/Header'
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { WhatToExpect } from '@/components/sections/WhatToExpect'
@@ -94,7 +94,7 @@ export default async function HomePage({
 
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main>
         {/* 1. Hero - Video background, phone, gift card CTA */}
         <Hero videoUrl={heroVideoUrl} settings={settings} />

@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
-import { Header } from '@/components/layout/Header'
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { GalleryPage } from '@/components/pages/GalleryPage'
 import { getGallery, getSiteSettings } from '../../../../sanity/lib'
@@ -33,7 +33,7 @@ export default async function Gallery({
 
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main className="pt-14">
         <GalleryPage gallery={gallery} locale={locale} settings={settings} />
       </main>

@@ -7,14 +7,20 @@ export const SITE_CONFIG = {
   facebook: 'https://facebook.com/nomadbarbershop',
 }
 
+// Booking now goes through Lime (Fresha is deprecated). These are fallbacks only —
+// Sanity CMS values (siteSettings.freshaUrl, location.freshaUrl) override them when set.
+const LIME_BOOKING_URL = 'https://form.lime-booking.com/hr/nomad-barbershop-/location'
+
 export const FRESHA_URLS = {
-  default: 'https://www.fresha.com/book-now/nomad-barbershop-zagreb',
-  giftCards: 'https://www.fresha.com/gift-cards/nomad-barbershop-zagreb',
+  default: LIME_BOOKING_URL,
+  // No dedicated Lime gift-card URL provided yet — falls back to the booking form.
+  // Set siteSettings.giftCardsUrl in the CMS once a Lime gift-card link exists.
+  giftCards: LIME_BOOKING_URL,
   locations: {
-    radnicka: 'https://www.fresha.com/book-now/nomad-barbershop-radnicka-cesta-80-zagreb',
-    spansko: 'https://www.fresha.com/book-now/nomad-barbershop-spansko-zagreb',
-    laniste: 'https://www.fresha.com/book-now/nomad-barbershop-laniste-zagreb',
-    kutnjacki: 'https://www.fresha.com/book-now/nomad-barbershop-kutnjacki-put-zagreb',
+    radnicka: LIME_BOOKING_URL,
+    spansko: LIME_BOOKING_URL,
+    laniste: LIME_BOOKING_URL,
+    kutnjacki: LIME_BOOKING_URL,
   },
 }
 

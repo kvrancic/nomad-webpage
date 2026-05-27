@@ -90,8 +90,9 @@ export const location = defineType({
     }),
     defineField({
       name: 'freshaUrl',
-      title: 'Fresha Booking URL',
+      title: 'Booking URL (Lime)',
       type: 'url',
+      description: 'Booking link for this location. Overrides the default booking URL.',
     }),
     defineField({
       name: 'googleMapsUrl',

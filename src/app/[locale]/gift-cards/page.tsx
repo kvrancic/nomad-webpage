@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
-import { Header } from '@/components/layout/Header'
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { GiftCardsPage } from '@/components/pages/GiftCardsPage'
 import { getGiftCardsPage, getSiteSettings } from '../../../../sanity/lib'
@@ -33,7 +33,7 @@ export default async function GiftCards({
 
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main className="pt-14">
         <GiftCardsPage data={giftCardsData} locale={locale} settings={settings} />
       </main>

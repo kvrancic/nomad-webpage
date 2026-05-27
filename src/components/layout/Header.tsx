@@ -12,7 +12,11 @@ import { Navigation } from './Navigation'
 import { MobileMenu } from './MobileMenu'
 import { FRESHA_URLS, SITE_CONFIG } from '@/lib/constants'
 
-export function Header() {
+interface HeaderProps {
+  bookingUrl?: string
+}
+
+export function Header({ bookingUrl = FRESHA_URLS.default }: HeaderProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
   const isHomepage = pathname === '/'
@@ -96,7 +100,7 @@ export function Header() {
             </a>
 
             <Button
-              href={FRESHA_URLS.default}
+              href={bookingUrl}
               variant="primary"
               size="sm"
               className="hidden sm:flex"
@@ -128,7 +132,10 @@ export function Header() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />
+          <MobileMenu
+            bookingUrl={bookingUrl}
+            onClose={() => setIsMobileMenuOpen(false)}
+          />
         )}
       </AnimatePresence>
     </>

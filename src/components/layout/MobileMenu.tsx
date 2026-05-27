@@ -22,9 +22,10 @@ const navItems = [
 
 interface MobileMenuProps {
   onClose: () => void
+  bookingUrl?: string
 }
 
-export function MobileMenu({ onClose }: MobileMenuProps) {
+export function MobileMenu({ onClose, bookingUrl = FRESHA_URLS.default }: MobileMenuProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
 
@@ -91,7 +92,7 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
             <LanguageSwitcher />
 
             <Button
-              href={FRESHA_URLS.default}
+              href={bookingUrl}
               variant="primary"
               className="w-full"
               onClick={onClose}

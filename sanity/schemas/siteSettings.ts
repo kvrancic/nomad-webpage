@@ -33,8 +33,9 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: 'freshaUrl',
-      title: 'Default Fresha Booking URL',
+      title: 'Default Booking URL (Lime)',
       type: 'url',
+      description: 'Used by the "Book Now" button and all booking CTAs site-wide.',
     }),
     defineField({
       name: 'giftCardsUrl',

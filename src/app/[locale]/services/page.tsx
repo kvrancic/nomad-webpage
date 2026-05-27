@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { getTranslations } from 'next-intl/server'
-import { Header } from '@/components/layout/Header'
+import { HeaderWrapper } from '@/components/layout/HeaderWrapper'
 import { FooterWrapper } from '@/components/layout/FooterWrapper'
 import { ServicesPage } from '@/components/pages/ServicesPage'
 import { getServices, getSiteSettings } from '../../../../sanity/lib'
@@ -35,7 +35,7 @@ export default async function Services({
 
   return (
     <>
-      <Header />
+      <HeaderWrapper />
       <main className="pt-14">
         <ServicesPage services={services} locale={locale} settings={settings} />
       </main>
