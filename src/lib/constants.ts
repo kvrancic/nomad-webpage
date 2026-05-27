@@ -27,7 +27,7 @@ export function getBarberBookingUrl(name: string): string {
 
 export const LIME_BOOKING_URLS = {
   default: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
-  giftCards: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
+  giftCards: 'https://giftup.app/place-order/615fb849-98dd-4fcf-6b1b-08da6587b481?platform=hosted',
   locations: [
     { keywords: ['radnicka', 'zagreb', 'tower'], url: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9806' },
     { keywords: ['spansko'], url: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9807' },
