@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: 'Nomad Barbershop',
   url: 'https://nomadbarbershop.hr',
-  email: 'barbershop@olivers.hr',
+  email: 'info@nomadbarbershop.hr',
   phone: '+385 91 7280 306',
   instagram: 'https://instagram.com/nomadbarbershop',
   facebook: 'https://facebook.com/nomadbarbershop',
