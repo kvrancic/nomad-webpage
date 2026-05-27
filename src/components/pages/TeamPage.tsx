@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
-import { BARBERS, LOCATIONS, LIME_BOOKING_URLS } from '@/lib/constants'
+import { BARBERS, LOCATIONS, getBarberBookingUrl } from '@/lib/constants'
 import { staggerContainer, fadeInUp, imageZoom } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityBarber, SanitySiteSettings } from '../../../sanity/lib'
@@ -30,7 +30,6 @@ export function TeamPage({ barbers, locale = 'hr', settings }: TeamPageProps) {
 
   const hasSanityData = barbers && barbers.length > 0
   const displayBarbers = hasSanityData ? barbers : BARBERS
-  const globalBookingUrl = LIME_BOOKING_URLS.default
 
   return (
     <section className="py-16 md:py-24">
@@ -59,8 +58,7 @@ export function TeamPage({ barbers, locale = 'hr', settings }: TeamPageProps) {
                 ? getLocationName(barber.location as string)
                 : ''
 
-            // Look up per-barber booking URL by lowercase name; fall back to general URL.
-            const bookingUrl = LIME_BOOKING_URLS.barbers[barberName.toLowerCase()] || globalBookingUrl
+            const bookingUrl = getBarberBookingUrl(barberName)
 
             return (
               <motion.div key={barberId} variants={fadeInUp}>

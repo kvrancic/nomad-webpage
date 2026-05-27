@@ -8,14 +8,35 @@ export const SITE_CONFIG = {
 }
 
 // Booking URLs are hardcoded here — they are the source of truth, not Sanity.
+const normalizeKey = (s: string): string =>
+  s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-')
+
+export function getLocationBookingUrl(slug: string | undefined, name: string): string {
+  for (const key of [slug, name].filter(Boolean) as string[]) {
+    const url = LIME_BOOKING_URLS.locations[normalizeKey(key)]
+    if (url) return url
+  }
+  return LIME_BOOKING_URLS.default
+}
+
+export function getBarberBookingUrl(name: string): string {
+  return LIME_BOOKING_URLS.barbers[normalizeKey(name)] || LIME_BOOKING_URLS.default
+}
+
 export const LIME_BOOKING_URLS = {
   default: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
   giftCards: 'https://form.lime-booking.com/hr/nomad-barbershop-/',
+  // Keys are matched against the location's slug AND its name (lowercased,
+  // diacritics stripped, spaces → dashes). Add multiple keys per location to
+  // tolerate slug/name changes in the CMS.
   locations: {
-    radnicka: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9806',
-    spansko: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9807',
-    laniste: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9808',
-    vrbani: 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9809',
+    'radnicka': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9806',
+    'zagreb-tower': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9806',
+    'spansko': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9807',
+    'laniste': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9808',
+    'vrbani': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9809',
+    'kutnjacki': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9809',
+    'kutnjacki-put': 'https://form.lime-booking.com/hr/nomad-barbershop-/service?l=9809',
   } as Record<string, string>,
   barbers: {
     veronika: 'https://form.lime-booking.com/hr/nomad-barbershop/service?l=9806&u=13897',

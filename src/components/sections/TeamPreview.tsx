@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { Link } from '@/i18n/routing'
-import { BARBERS, LOCATIONS, LIME_BOOKING_URLS } from '@/lib/constants'
+import { BARBERS, LOCATIONS, getBarberBookingUrl } from '@/lib/constants'
 import { fadeInUp, imageZoom, staggerContainer } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityBarber, SanitySiteSettings } from '../../../sanity/lib'
@@ -35,7 +35,6 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
   // Use Sanity data if available, otherwise fall back to constants
   const hasSanityData = barbers && barbers.length > 0
   const displayBarbers = hasSanityData ? barbers : BARBERS
-  const globalBookingUrl = LIME_BOOKING_URLS.default
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current
@@ -125,8 +124,7 @@ export function TeamPreview({ barbers, locale = 'hr', settings }: TeamPreviewPro
                 ? getLocationName(barber.location as string)
                 : ''
 
-            // Look up per-barber booking URL by lowercase name; fall back to general URL.
-            const bookingUrl = LIME_BOOKING_URLS.barbers[barberName.toLowerCase()] || globalBookingUrl
+            const bookingUrl = getBarberBookingUrl(barberName)
 
             return (
               <motion.div

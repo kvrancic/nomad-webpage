@@ -8,7 +8,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card, CardContent } from '@/components/ui/Card'
 import { PlaceholderImage } from '@/components/shared/PlaceholderImage'
 import { Button } from '@/components/ui/Button'
-import { LOCATIONS, LIME_BOOKING_URLS } from '@/lib/constants'
+import { LOCATIONS, getLocationBookingUrl } from '@/lib/constants'
 import { staggerContainer, fadeInUp } from '@/lib/animations'
 import { urlFor } from '../../../sanity/lib'
 import type { SanityLocation, SanitySiteSettings } from '../../../sanity/lib'
@@ -39,7 +39,7 @@ export function LocationsGrid({ locations, locale, settings }: LocationsGridProp
 
   const getBookingUrl = (location: SanityLocation | typeof LOCATIONS[0]) => {
     const slug = '_id' in location ? location.slug : location.id
-    return LIME_BOOKING_URLS.locations[slug] || LIME_BOOKING_URLS.default
+    return getLocationBookingUrl(slug, location.name)
   }
 
   const getGoogleMapsUrl = (location: SanityLocation | typeof LOCATIONS[0]) => {
