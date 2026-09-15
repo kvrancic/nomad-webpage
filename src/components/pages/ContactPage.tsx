@@ -25,6 +25,7 @@ export function ContactPage({ locations, locale = 'hr', settings }: ContactPageP
 
   const hasSanityData = locations && locations.length > 0
   const displayLocations = hasSanityData ? locations : LOCATIONS
+  const phone = settings?.phone || SITE_CONFIG.phone
 
   // Group locations by city, preserving order
   type LocationItem = SanityLocation | typeof LOCATIONS[0]
@@ -197,10 +198,10 @@ export function ContactPage({ locations, locale = 'hr', settings }: ContactPageP
                 {t('info.phone')}
               </h3>
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={`tel:${phone.replace(/\s/g, '')}`}
                 className="text-neutral-300 hover:text-mint-400 transition-colors"
               >
-                {SITE_CONFIG.phone}
+                {phone}
               </a>
             </motion.div>
 

@@ -14,9 +14,10 @@ import { LIME_BOOKING_URLS, SITE_CONFIG } from '@/lib/constants'
 
 interface HeaderProps {
   bookingUrl?: string
+  phone?: string
 }
 
-export function Header({ bookingUrl = LIME_BOOKING_URLS.default }: HeaderProps) {
+export function Header({ bookingUrl = LIME_BOOKING_URLS.default, phone = SITE_CONFIG.phone }: HeaderProps) {
   const t = useTranslations('navigation')
   const pathname = usePathname()
   const isHomepage = pathname === '/'
@@ -87,7 +88,7 @@ export function Header({ bookingUrl = LIME_BOOKING_URLS.default }: HeaderProps) 
 
             {/* Phone - visible on larger screens */}
             <a
-              href={`tel:${SITE_CONFIG.phone.replace(/\s/g, '')}`}
+              href={`tel:${phone.replace(/\s/g, '')}`}
               className={cn(
                 'hidden lg:flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-colors',
                 isTransparent
@@ -96,7 +97,7 @@ export function Header({ bookingUrl = LIME_BOOKING_URLS.default }: HeaderProps) 
               )}
             >
               <Phone className="w-4 h-4" />
-              <span className="hidden xl:inline">{SITE_CONFIG.phone}</span>
+              <span className="hidden xl:inline">{phone}</span>
             </a>
 
             <Button

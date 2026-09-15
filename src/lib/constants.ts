@@ -2,7 +2,7 @@ export const SITE_CONFIG = {
   name: 'Nomad Barbershop',
   url: 'https://nomadbarbershop.hr',
   email: 'info@nomadbarbershop.hr',
-  phone: '+385 91 7280 306',
+  phone: '+385 91 6057 228',
   instagram: 'https://instagram.com/nomadbarbershop',
   facebook: 'https://facebook.com/nomadbarbershop',
 }
@@ -58,7 +58,7 @@ export const LOCATIONS = [
     name: 'Zagreb Tower',
     address: 'Radnička cesta 80',
     city: 'Zagreb',
-    phone: '+385 91 7280 306',
+    phone: '+385 91 6057 228',
     hours: {
       weekdays: '08:00 - 20:00',
       saturday: '09:00 - 14:00',
@@ -72,7 +72,7 @@ export const LOCATIONS = [
     name: 'Špansko',
     address: 'Trg 101. brigade',
     city: 'Zagreb',
-    phone: '+385 91 7280 306',
+    phone: '+385 91 6057 228',
     hours: {
       weekdays: '08:00 - 20:00',
       saturday: '09:00 - 14:00',
@@ -86,7 +86,7 @@ export const LOCATIONS = [
     name: 'Lanište',
     address: 'Lanište 15/A',
     city: 'Zagreb',
-    phone: '+385 91 7280 306',
+    phone: '+385 91 6057 228',
     hours: {
       weekdays: '08:00 - 20:00',
       saturday: '09:00 - 14:00',
@@ -100,7 +100,7 @@ export const LOCATIONS = [
     name: 'Kutnjački put',
     address: 'Kutnjački put 8',
     city: 'Zagreb',
-    phone: '+385 91 7280 306',
+    phone: '+385 91 6057 228',
     hours: {
       weekdays: '08:00 - 20:00',
       saturday: '09:00 - 14:00',
