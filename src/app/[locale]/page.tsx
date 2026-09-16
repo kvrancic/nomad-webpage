@@ -87,10 +87,9 @@ export default async function HomePage({
     getExperienceShowcase(),
   ])
 
-  // Get video URL from settings if available
-  const heroVideoUrl = settings?.heroVideo?.asset?._ref
-    ? `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${settings.heroVideo.asset._ref.replace('file-', '').replace('-mp4', '.mp4')}`
-    : undefined
+  // Hero video is bundled with the site (public/videos) rather than streamed
+  // from Sanity, so homepage traffic doesn't count against the Sanity bandwidth quota.
+  const heroVideoUrl = '/videos/hero.mp4'
 
   return (
     <>

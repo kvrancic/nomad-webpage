@@ -49,6 +49,8 @@ export const siteSettings = defineType({
       options: {
         accept: 'video/*',
       },
+      description:
+        'Not used. The hero video is bundled with the site code (public/videos/hero.mp4) so it does not consume Sanity bandwidth. Ask a developer to replace it.',
     }),
     defineField({
       name: 'heroImage',

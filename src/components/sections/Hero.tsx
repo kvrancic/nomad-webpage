@@ -39,6 +39,7 @@ export function Hero({ videoUrl, settings }: HeroProps) {
             muted
             loop
             playsInline
+            poster="/images/hero-poster.jpg"
             className="absolute inset-0 w-full h-full object-cover"
           >
             <source src={videoUrl} type="video/mp4" />
