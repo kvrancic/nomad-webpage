@@ -29,3 +29,8 @@ next-env.d.ts
 # Vercel
 .vercel
 next-llm.txt
+
+# Cloudflare (OpenNext)
+.open-next
+.wrangler
+.dev.vars

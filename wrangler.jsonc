@@ -1,0 +1,28 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nomad-webpage",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "images": {
+    "binding": "IMAGES"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "nomad-webpage"
+    }
+  ],
+  "kv_namespaces": [
+    { "binding": "NEXT_INC_CACHE_KV", "id": "TODO" },
+    { "binding": "NEXT_TAG_CACHE_KV", "id": "TODO" }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "142o1xmd",
+    "NEXT_PUBLIC_SANITY_DATASET": "production"
+  }
+}
