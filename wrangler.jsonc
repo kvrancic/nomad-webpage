@@ -18,8 +18,8 @@
     }
   ],
   "kv_namespaces": [
-    { "binding": "NEXT_INC_CACHE_KV", "id": "TODO" },
-    { "binding": "NEXT_TAG_CACHE_KV", "id": "TODO" }
+    { "binding": "NEXT_INC_CACHE_KV", "id": "817abbd24f32456680abec7d9eea190b" },
+    { "binding": "NEXT_TAG_CACHE_KV", "id": "cdb01aadc7b8442b800b665aa189abf4" }
   ],
   "vars": {
     "NEXT_PUBLIC_SANITY_PROJECT_ID": "142o1xmd",
